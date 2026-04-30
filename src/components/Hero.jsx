@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { ChevronDown, Github, Linkedin, Mail, ArrowRight, Download } from 'lucide-react'
+import { FiChevronDown, FiMail } from 'react-icons/fi'
+import { FaGithub, FaLinkedin, FaArrowRight, FaDownload } from 'react-icons/fa'
 import profileImg from '../assets/profile.jpg'
 
 const Hero = () => {
@@ -41,9 +42,9 @@ const Hero = () => {
   ]
 
   const socials = [
-    { icon: <Github className="w-5 h-5" />, label: 'GitHub', href: 'https://github.com/Hadeed711' },
-    { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/hadeed-ahmad-a15919277' },
-    { icon: <Mail className="w-5 h-5" />, label: 'Email', href: 'mailto:hadeedahmad711@gmail.com' },
+    { icon: <FaGithub className="w-5 h-5" />, label: 'GitHub', href: 'https://github.com/Hadeed711' },
+    { icon: <FaLinkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/hadeed-ahmad-a15919277' },
+    { icon: <FiMail className="w-5 h-5" />, label: 'Email', href: 'mailto:hadeedahmad711@gmail.com' },
   ]
 
   return (
@@ -125,14 +126,14 @@ const Hero = () => {
                 className="btn-shimmer group flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-violet-700 shadow-lg hover:shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
               >
                 View My Work
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
               <a
                 href="/CV_Hadeed_Ahmad.pdf"
                 download
                 className="group flex items-center justify-center gap-2 px-8 py-3.5 bg-white dark:bg-gray-800/90 border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:border-blue-500 dark:hover:border-blue-500 hover:-translate-y-0.5 transition-all duration-300 backdrop-blur-sm"
               >
-                <Download className="w-4 h-4" />
+                <FaDownload className="w-4 h-4" />
                 Download CV
               </a>
             </div>
@@ -161,30 +162,7 @@ const Hero = () => {
                   alt="Hadeed Ahmad Profile"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
-
-              {/* Floating stat badge — NSCT */}
-              <div
-                className="absolute -bottom-6 -left-10 px-4 py-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 animate-float"
-                style={{ animationDelay: '0s' }}
-              >
-                <div className="text-2xl font-extrabold gradient-text">84.6<span className="text-base">th</span></div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">NSCT Percentile</div>
-              </div>
-
-              {/* Floating stat badge — hackathons */}
-              <div
-                className="absolute -top-6 -right-10 px-4 py-3 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 animate-float"
-                style={{ animationDelay: '2s' }}
-              >
-                <div className="text-2xl font-extrabold gradient-text">5+</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Hackathons</div>
-              </div>
-
-              {/* Accent dots */}
-              <div className="absolute -top-3 -left-3 w-8 h-8 bg-blue-500 rounded-full shadow-lg animate-float" style={{ animationDelay: '1s' }} />
-              <div className="absolute -bottom-3 -right-3 w-6 h-6 bg-violet-500 rounded-full shadow-lg animate-float" style={{ animationDelay: '3s' }} />
             </div>
           </div>
         </div>
@@ -192,7 +170,7 @@ const Hero = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown
+        <FiChevronDown
           size={28}
           className="text-gray-400 cursor-pointer hover:text-blue-600 transition-colors duration-300"
           onClick={() => document.querySelector('#about').scrollIntoView({ behavior: 'smooth' })}

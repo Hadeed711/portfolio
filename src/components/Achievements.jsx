@@ -197,24 +197,17 @@ const Achievements = () => {
                 key={index}
                 className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring} hover:-translate-y-1 hover:shadow-xl transition-all duration-300`}
               >
-                {/* Gradient header */}
-                <div className={`bg-gradient-to-br ${h.color} p-5`}>
-                  <div className="flex items-start justify-between">
-                    <span className="text-4xl">{h.icon}</span>
-                    <span className="text-white/80 text-xs font-semibold bg-white/20 px-2 py-1 rounded-full">
-                      {h.year}
-                    </span>
-                  </div>
-                  <div className="mt-3 text-white font-bold text-sm leading-snug">
-                    {h.result}
-                  </div>
-                </div>
-
                 {/* Content */}
                 <div className="p-5">
+                  <div className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-gradient-to-r ${h.color} text-white mb-3`}>
+                    {h.year}
+                  </div>
                   <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-2 leading-snug">
                     {h.title}
                   </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                    {h.result}
+                  </p>
                   <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
                     {h.detail}
                   </p>

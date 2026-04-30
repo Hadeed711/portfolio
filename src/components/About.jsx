@@ -12,6 +12,10 @@ import {
   FaBrain,
   FaEye,
   FaChartBar,
+  FaRocket,
+  FaRobot,
+  FaLaptopCode,
+  FaAward,
 } from 'react-icons/fa'
 import {
   SiDjango,
@@ -39,6 +43,11 @@ import {
   SiOpencv,
 } from 'react-icons/si'
 import { useState } from 'react'
+import hackathonIcon from '../assets/icons/hackathon_icon.png'
+import mlIcon from '../assets/icons/ml_icon.png'
+import devIcon from '../assets/icons/dev_icon.png'
+import datascienceIcon from '../assets/icons/datascience_icon.png'
+import achievementIcon from '../assets/icons/achievement_icon.png'
 
 const About = () => {
   const [activeCategory, setActiveCategory] = useState('frontend')
@@ -212,42 +221,42 @@ const About = () => {
           <div className="space-y-4">
             {[
               {
-                icon: '🚀',
-                title: 'International Hackathons',
-                desc: 'NASA Space Apps 2025, IBM Watson Hackathon, Code with KIRO — building real solutions for global challenges.',
-                color: 'from-blue-500 to-cyan-500',
-              },
-              {
-                icon: '🤖',
-                title: 'AI & Machine Learning',
-                desc: 'Regression, Classification, Clustering, Neural Networks — achieving 92% accuracy on production ML models.',
-                color: 'from-violet-500 to-purple-600',
-              },
-              {
-                icon: '🌐',
-                title: 'Full Stack Projects',
-                desc: 'Delivered real client websites (Sundar Marbles) using React + Django, deployed on Vercel & Azure.',
-                color: 'from-green-500 to-emerald-600',
-              },
-              {
-                icon: '📊',
-                title: 'Data Science',
-                desc: 'EDA, Pandas, Scikit-learn, Streamlit dashboards — turning raw data into actionable insights.',
-                color: 'from-orange-500 to-amber-600',
-              },
-              {
-                icon: '🏆',
-                title: 'Competition Achievements',
-                desc: 'IAAC Silver Honour (top 8%), MIT² — #108 out of 533 teams worldwide.',
-                color: 'from-pink-500 to-rose-600',
-              },
+                  icon: hackathonIcon,
+                  title: 'International Hackathons',
+                  desc: 'NASA Space Apps 2025, IBM Watson Hackathon, Code with KIRO — building real solutions for global challenges.',
+                  color: 'from-blue-500 to-cyan-500',
+                },
+                {
+                  icon: mlIcon,
+                  title: 'AI & Machine Learning',
+                  desc: 'Regression, Classification, Clustering, Neural Networks — achieving 92% accuracy on production ML models.',
+                  color: 'from-violet-500 to-purple-600',
+                },
+                {
+                  icon: devIcon,
+                  title: 'Full Stack Projects',
+                  desc: 'Delivered real client websites (Sundar Marbles) using React + Django, deployed on Vercel & Azure.',
+                  color: 'from-green-500 to-emerald-600',
+                },
+                {
+                  icon: datascienceIcon,
+                  title: 'Data Science',
+                  desc: 'EDA, Pandas, Scikit-learn, Streamlit dashboards — turning raw data into actionable insights.',
+                  color: 'from-orange-500 to-amber-600',
+                },
+                {
+                  icon: achievementIcon,
+                  title: 'Competition Achievements',
+                  desc: 'IAAC Silver Honour (top 8%), MIT² — #108 out of 533 teams worldwide.',
+                  color: 'from-pink-500 to-rose-600',
+                },
             ].map((item) => (
               <div
                 key={item.title}
                 className="flex items-start gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
               >
-                <div className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center text-lg shadow-sm`}>
-                  {item.icon}
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                  <img src={item.icon} alt={item.title} className="w-12 h-12 object-contain" />
                 </div>
                 <div>
                   <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{item.title}</h5>
