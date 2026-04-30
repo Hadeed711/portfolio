@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply transition-colors duration-300;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+@layer components {
+
+  /* ============================================================
+     GRADIENT TEXT
+  ============================================================ */
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent;
+    background-size: 200% auto;
+  }
+
+  /* ============================================================
+     SECTION BADGE  — small pill that appears above section headings
+  ============================================================ */
+  .section-badge {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest
+           bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400
+           border border-blue-200 dark:border-blue-700/60 mb-5;
+  }
+
+  /* ============================================================
+     GLASS CARD
+  ============================================================ */
+  .glass-card {
+    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl
+           border border-white/40 dark:border-gray-700/50
+           shadow-xl shadow-black/5 dark:shadow-black/30;
+  }
+
+  /* ============================================================
+     GRADIENT RING  — used around hero profile image
+  ============================================================ */
+  .gradient-ring {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
+    background-size: 300% 300%;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  /* ============================================================
+     CYBER BORDER
+  ============================================================ */
+  .cyber-border {
+    @apply relative overflow-hidden;
+  }
+
+  .cyber-border::before {
+    content: '';
+    @apply absolute inset-0 opacity-75;
+    padding: 2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+  }
+
+  .glow-text {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .floating-card {
+    @apply transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl;
+    backdrop-filter: blur(10px);
+  }
+
+  .neon-glow {
+    box-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor,
+      0 0 20px currentColor;
+  }
+
+  /* ============================================================
+     SHIMMER BUTTON EFFECT
+  ============================================================ */
+  .btn-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* ============================================================
+     PATTERNS
+  ============================================================ */
+  .pattern-dots {
+    background-image: radial-gradient(circle at 1px 1px, rgba(156, 163, 175, 0.18) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .pattern-grid {
+    background-image:
+      linear-gradient(rgba(156, 163, 175, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(156, 163, 175, 0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .pattern-diagonal {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(156, 163, 175, 0.04) 3px,
+      rgba(156, 163, 175, 0.04) 6px
+    );
+  }
+
+  .pattern-lines {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 10px,
+      rgba(156, 163, 175, 0.03) 10px,
+      rgba(156, 163, 175, 0.03) 11px
+    );
+  }
+
+  .card-with-pattern {
+    position: relative;
+  }
+
+  .card-with-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 2px 2px, rgba(156, 163, 175, 0.05) 1px, transparent 0);
+    background-size: 20px 20px;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .profile-scanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #06b6d4, transparent);
+    animation: scan 3s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .group:hover .profile-scanner {
+    opacity: 1;
+  }
+
+  .hexagon-pattern {
+    background-image:
+      radial-gradient(circle at 25% 25%, transparent 20%, rgba(14, 165, 233, 0.1) 21%, rgba(14, 165, 233, 0.1) 25%, transparent 26%),
+      radial-gradient(circle at 75% 75%, transparent 20%, rgba(139, 92, 246, 0.1) 21%, rgba(139, 92, 246, 0.1) 25%, transparent 26%);
+    background-size: 20px 20px;
+  }
+
+  .circuit-lines {
+    background-image:
+      linear-gradient(90deg, transparent 48%, rgba(14, 165, 233, 0.2) 49%, rgba(14, 165, 233, 0.2) 51%, transparent 52%),
+      linear-gradient(0deg, transparent 48%, rgba(139, 92, 246, 0.2) 49%, rgba(139, 92, 246, 0.2) 51%, transparent 52%);
+    background-size: 30px 30px;
+  }
+}
+
+/* ============================================================
+   KEYFRAMES — (gradient-ring and shimmer needed globally)
+============================================================ */
+@keyframes shimmer {
+  0%   { background-position: -250% center; }
+  100% { background-position: 250% center; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.1); }
+  66%       { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+/* ============================================================
+   CERT SLIDER — hide native scrollbar
+============================================================ */
+.cert-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #2563eb, #7c3aed);
+}
