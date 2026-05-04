@@ -12,72 +12,64 @@ import Footer from './components/Footer'
 import ProjectDetail from './components/ProjectDetailPage'
 import BackgroundPattern from './components/BackgroundPattern'
 import ScrollProgress from './components/ScrollProgress'
-import profileImage from './assets/profile.jpg'
+import { projects as allProjects } from './data/projects'
 
-const siteName = 'Hadeed Ahmad'
-const siteDescription =
-  'Hadeed Ahmad is a software engineer, full-stack developer, backend developer, data scientist, and ML engineer building modern web apps, AI projects, and portfolio-ready solutions.'
-const siteKeywords = [
-  'Hadeed Ahmad',
-  'Hadeed Ahmad portfolio',
-  'software engineer',
-  'full stack developer',
-  'backend developer',
-  'data scientist',
-  'machine learning engineer',
-  'ML engineer',
-  'React developer',
-  'Python developer',
-  'Faisalabad Pakistan',
-].join(', ')
+const SITE_URL = 'https://hadeedahmad.vercel.app'
+const SITE_NAME = 'Hadeed Ahmad'
+const OG_IMAGE = `${SITE_URL}/og-image.jpg`
+const OG_IMAGE_ALT = 'Hadeed Ahmad — Software Engineer & Full-Stack Developer'
 
-const seoSelector = '[data-seo-managed="true"]'
+const BASE_DESCRIPTION =
+  'Hadeed Ahmad — Full-Stack Developer, Data Scientist & ML Engineer. CS undergraduate at UAF. NASA Space Apps & IBM Watson hackathon participant. Available for opportunities.'
 
-const setMetaTag = (attributeName, value, content) => {
+const BASE_KEYWORDS =
+  'Hadeed Ahmad, Hadeed Ahmad portfolio, software engineer, full stack developer, backend developer, data scientist, machine learning engineer, ML engineer, React developer, Python developer, Django developer, Faisalabad Pakistan, UAF'
+
+const setMeta = (attr, value, content) => {
   if (!content) return
-
-  let element = document.head.querySelector(`meta[${attributeName}="${value}"]`)
-  if (!element) {
-    element = document.createElement('meta')
-    element.setAttribute(attributeName, value)
-    element.setAttribute('data-seo-managed', 'true')
-    document.head.appendChild(element)
+  let el = document.head.querySelector(`meta[${attr}="${value}"]`)
+  if (!el) {
+    el = document.createElement('meta')
+    el.setAttribute(attr, value)
+    el.setAttribute('data-seo', 'true')
+    document.head.appendChild(el)
   }
-  element.setAttribute('content', content)
+  el.setAttribute('content', content)
 }
 
-const setLinkTag = (rel, href) => {
+const setLink = (rel, href) => {
   if (!href) return
-
-  let element = document.head.querySelector(`link[rel="${rel}"]`)
-  if (!element) {
-    element = document.createElement('link')
-    element.setAttribute('rel', rel)
-    element.setAttribute('data-seo-managed', 'true')
-    document.head.appendChild(element)
+  let el = document.head.querySelector(`link[rel="${rel}"][data-seo]`)
+  if (!el) {
+    el = document.createElement('link')
+    el.setAttribute('rel', rel)
+    el.setAttribute('data-seo', 'true')
+    document.head.appendChild(el)
   }
-  element.setAttribute('href', href)
+  el.setAttribute('href', href)
 }
 
-const setJsonLd = (id, value) => {
-  let element = document.head.querySelector(`script[data-seo-jsonld="${id}"]`)
-  if (!element) {
-    element = document.createElement('script')
-    element.type = 'application/ld+json'
-    element.setAttribute('data-seo-managed', 'true')
-    element.setAttribute('data-seo-jsonld', id)
-    document.head.appendChild(element)
+const setJsonLd = (id, schema) => {
+  let el = document.head.querySelector(`script[data-seo-ld="${id}"]`)
+  if (!el) {
+    el = document.createElement('script')
+    el.type = 'application/ld+json'
+    el.setAttribute('data-seo', 'true')
+    el.setAttribute('data-seo-ld', id)
+    document.head.appendChild(el)
   }
-  element.textContent = JSON.stringify(value)
+  el.textContent = JSON.stringify(schema)
+}
+
+const removeDynamicSeo = () => {
+  document.querySelectorAll('[data-seo="true"]').forEach((el) => el.remove())
 }
 
 const ScrollToTop = () => {
   const { pathname } = useLocation()
-
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname])
-
   return null
 }
 
@@ -85,58 +77,121 @@ const SeoHead = () => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const isProjectPage = pathname.startsWith('/project/')
-    const pageTitle = isProjectPage
-      ? `${siteName} | Featured Project Case Study`
-      : `${siteName} | Software Engineer & Full-Stack Developer`
-    const pageDescription = isProjectPage
-      ? 'Explore Hadeed Ahmad\'s selected project work, including full-stack, AI, and software engineering case studies.'
-      : siteDescription
-    const hasHttpOrigin = window.location.protocol === 'http:' || window.location.protocol === 'https:'
-    const canonicalHref = hasHttpOrigin ? `${window.location.origin}${pathname}` : null
-    const imageHref = hasHttpOrigin ? `${window.location.origin}${profileImage}` : profileImage
+    const projectMatch = pathname.match(/^\/project\/(\d+)$/)
+    const projectId = projectMatch ? parseInt(projectMatch[1], 10) : null
+    const project = projectId ? allProjects.find((p) => p.id === projectId) : null
 
-    document.title = pageTitle
+    const pageUrl = `${SITE_URL}${pathname}`
 
-    setMetaTag('name', 'description', pageDescription)
-    setMetaTag('name', 'keywords', siteKeywords)
-    setMetaTag('name', 'author', siteName)
-    setMetaTag('name', 'robots', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')
-    setMetaTag('name', 'theme-color', '#0f172a')
-    setMetaTag('property', 'og:title', pageTitle)
-    setMetaTag('property', 'og:description', pageDescription)
-    setMetaTag('property', 'og:type', isProjectPage ? 'article' : 'website')
-    setMetaTag('property', 'og:image', imageHref)
-    setMetaTag('property', 'og:image:alt', `${siteName} portfolio portrait`)
-    setMetaTag('property', 'og:site_name', siteName)
-    setMetaTag('property', 'og:locale', 'en_US')
-    setMetaTag('name', 'twitter:card', 'summary_large_image')
-    setMetaTag('name', 'twitter:title', pageTitle)
-    setMetaTag('name', 'twitter:description', pageDescription)
-    setMetaTag('name', 'twitter:image', imageHref)
-    setLinkTag('canonical', canonicalHref)
+    let title, description, ogType
 
-    if (!isProjectPage) {
+    if (project) {
+      title = `${project.title} | Hadeed Ahmad`
+      description = `${project.summary} — A project by Hadeed Ahmad, Full-Stack Developer & ML Engineer.`
+      ogType = 'article'
+    } else {
+      title = `${SITE_NAME} | Software Engineer & Full-Stack Developer`
+      description = BASE_DESCRIPTION
+      ogType = 'website'
+    }
+
+    document.title = title
+
+    // ─── Primary ───
+    setMeta('name', 'description', description)
+    setMeta('name', 'keywords', BASE_KEYWORDS)
+    setMeta('name', 'author', SITE_NAME)
+    setMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
+
+    // ─── Open Graph ───
+    setMeta('property', 'og:title', title)
+    setMeta('property', 'og:description', description)
+    setMeta('property', 'og:type', ogType)
+    setMeta('property', 'og:url', pageUrl)
+    setMeta('property', 'og:site_name', SITE_NAME)
+    setMeta('property', 'og:locale', 'en_US')
+    setMeta('property', 'og:image', OG_IMAGE)
+    setMeta('property', 'og:image:secure_url', OG_IMAGE)
+    setMeta('property', 'og:image:type', 'image/jpeg')
+    setMeta('property', 'og:image:width', '1200')
+    setMeta('property', 'og:image:height', '630')
+    setMeta('property', 'og:image:alt', OG_IMAGE_ALT)
+
+    // ─── Twitter ───
+    setMeta('name', 'twitter:card', 'summary_large_image')
+    setMeta('name', 'twitter:title', title)
+    setMeta('name', 'twitter:description', description)
+    setMeta('name', 'twitter:image', OG_IMAGE)
+    setMeta('name', 'twitter:image:alt', OG_IMAGE_ALT)
+
+    // ─── Canonical ───
+    setLink('canonical', pageUrl)
+
+    // ─── JSON-LD: Homepage ───
+    if (!project) {
       setJsonLd('person', {
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: siteName,
+        '@id': `${SITE_URL}/#person`,
+        name: SITE_NAME,
+        givenName: 'Hadeed',
+        familyName: 'Ahmad',
         jobTitle: 'Software Engineer',
-        url: canonicalHref || '/',
-        image: imageHref,
+        description:
+          'CS undergraduate at the University of Agriculture Faisalabad, specializing in Machine Learning, Data Science, and Full-Stack Development.',
+        url: SITE_URL,
+        image: OG_IMAGE,
         email: 'hadeedahmad711@gmail.com',
         telephone: '+92 324 1669274',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Faisalabad',
+          addressRegion: 'Punjab',
           addressCountry: 'PK',
         },
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: 'The University of Agriculture, Faisalabad',
+          sameAs: 'https://uaf.edu.pk',
+        },
+        worksFor: {
+          '@type': 'Organization',
+          name: 'DataZenix',
+          description: 'Remote Data Science Internship',
+        },
+        hasCredential: [
+          {
+            '@type': 'EducationalOccupationalCredential',
+            name: 'Advanced Data Analytics Professional Certificate',
+            credentialCategory: 'Professional Certificate',
+            recognizedBy: { '@type': 'Organization', name: 'Google via Coursera' },
+          },
+          {
+            '@type': 'EducationalOccupationalCredential',
+            name: 'Getting Started with Python',
+            credentialCategory: 'Certificate',
+            recognizedBy: { '@type': 'Organization', name: 'University of Michigan via Coursera' },
+          },
+        ],
+        award: [
+          'IAAC Silver Award — Top 8%',
+          'MIT² Hackathon — #108 of 533',
+          'NASA Space Apps Challenge 2025 Participant',
+          'IBM Watson Hackathon 2025 Participant',
+          'KIRO Hackathon 2025 Participant',
+          'NSCT — 84.6th Percentile',
+        ],
         knowsAbout: [
           'Software Engineering',
           'Full-Stack Development',
           'Machine Learning',
           'Data Science',
           'Backend Development',
+          'React',
+          'Django',
+          'Python',
+          'PostgreSQL',
+          'Artificial Intelligence',
         ],
         sameAs: [
           'https://github.com/Hadeed711',
@@ -147,20 +202,72 @@ const SeoHead = () => {
       setJsonLd('website', {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: `${siteName} Portfolio`,
-        url: canonicalHref || '/',
-        description: pageDescription,
+        '@id': `${SITE_URL}/#website`,
+        name: `${SITE_NAME} Portfolio`,
+        url: SITE_URL,
+        description,
         inLanguage: 'en-US',
-        author: {
-          '@type': 'Person',
-          name: siteName,
-        },
+        author: { '@type': 'Person', '@id': `${SITE_URL}/#person` },
+      })
+
+      setJsonLd('breadcrumb', {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+        ],
       })
     }
 
-    return () => {
-      document.querySelectorAll(seoSelector).forEach((element) => element.remove())
+    // ─── JSON-LD: Project page ───
+    if (project) {
+      setJsonLd('software', {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareSourceCode',
+        name: project.title,
+        description: project.description,
+        url: pageUrl,
+        codeRepository: project.github,
+        programmingLanguage: project.technologies,
+        author: {
+          '@type': 'Person',
+          '@id': `${SITE_URL}/#person`,
+          name: SITE_NAME,
+        },
+      })
+
+      setJsonLd('breadcrumb', {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Projects',
+            item: `${SITE_URL}/#projects`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: project.title,
+            item: pageUrl,
+          },
+        ],
+      })
     }
+
+    return removeDynamicSeo
   }, [pathname])
 
   return null
@@ -170,22 +277,25 @@ function App() {
   const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    const saved = localStorage.getItem('theme')
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       setDarkMode(true)
       document.documentElement.classList.add('dark')
     }
   }, [])
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-    if (!darkMode) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
+    setDarkMode((prev) => {
+      const next = !prev
+      if (next) {
+        document.documentElement.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+      }
+      return next
+    })
   }
 
   return (
@@ -196,22 +306,25 @@ function App() {
         <BackgroundPattern />
         <ScrollProgress />
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        
+
         <Routes>
-          <Route path="/" element={
-            <main>
-              <Hero />
-              <About />
-              <Education />
-              <Projects />
-              <Experience />
-              <Achievements />
-              <Contact />
-            </main>
-          } />
+          <Route
+            path="/"
+            element={
+              <main>
+                <Hero />
+                <About />
+                <Education />
+                <Projects />
+                <Experience />
+                <Achievements />
+                <Contact />
+              </main>
+            }
+          />
           <Route path="/project/:id" element={<ProjectDetail />} />
         </Routes>
-        
+
         <Footer />
       </div>
     </Router>

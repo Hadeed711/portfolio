@@ -1,0 +1,24 @@
+{
+  "name": "Hadeed Ahmad | Portfolio",
+  "short_name": "Hadeed Ahmad",
+  "description": "Portfolio of Hadeed Ahmad — Software Engineer, Full-Stack Developer, Data Scientist & ML Engineer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
