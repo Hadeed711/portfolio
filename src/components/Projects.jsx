@@ -66,7 +66,7 @@ const Projects = () => {
               {filteredFeatured.map((project) => (
                 <div
                   key={project.id}
-                  className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-700 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+                  className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-300 dark:border-gray-600 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
                 >
                   {/* Project Image or Gradient banner */}
                   <div 
@@ -182,7 +182,7 @@ const Projects = () => {
               {filteredOther.map((project) => (
                 <div
                   key={project.id}
-                  className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                  className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-gray-600 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
                 >
                   {/* Project Image or Gradient banner */}
                   <div 
