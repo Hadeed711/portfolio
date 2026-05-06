@@ -70,7 +70,7 @@ const Projects = () => {
                 >
                   {/* Project Image or Gradient banner */}
                   <div 
-                    className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden ${project.image ? 'cursor-pointer' : ''}`}
+                    className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden border-b border-gray-400 dark:border-gray-500 ${project.image ? 'cursor-pointer' : ''}`}
                     onClick={() => project.image && setZoomedImage(project.image)}
                   >
                     {project.image ? (
@@ -95,9 +95,9 @@ const Projects = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors duration-300"
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/50 hover:bg-white/30 transition-colors duration-300"
                       >
-                        <Github className="text-white" size={18} />
+                        <Github className="text-gray-700" size={18} />
                       </a>
                       {project.live && (
                         <a
@@ -186,7 +186,7 @@ const Projects = () => {
                 >
                   {/* Project Image or Gradient banner */}
                   <div 
-                    className={`h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden ${project.image ? 'cursor-pointer' : ''}`}
+                    className={`h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden border-b border-gray-400 dark:border-gray-500 ${project.image ? 'cursor-pointer' : ''}`}
                     onClick={() => project.image && setZoomedImage(project.image)}
                   >
                     {project.image ? (
@@ -208,9 +208,9 @@ const Projects = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors duration-300"
+                        className="p-1.5 bg-white/20 backdrop-blur-sm rounded-full border border-white/50 hover:bg-white/30 transition-colors duration-300"
                       >
-                        <Github className="text-white" size={14} />
+                        <Github className="text-gray-700" size={14} />
                       </a>
                     </div>
                   </div>
