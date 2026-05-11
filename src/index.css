@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,8 +11,13 @@
 
   body {
     @apply transition-colors duration-300;
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Libre Baskerville', Georgia, serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background-color: #e9ecef; /* metallic silver base */
+    background-image: linear-gradient(180deg, #f7f8f9 0%, #e9ecef 40%, #e3e7ea 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #0f1720;
   }
 }
 
@@ -20,8 +27,11 @@
      GRADIENT TEXT
   ============================================================ */
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #4b5563 0%, #9aa4a9 50%, #c9d1d4 100%);
     background-size: 200% auto;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.3px;
   }
 
   /* ============================================================
@@ -29,8 +39,9 @@
   ============================================================ */
   .section-badge {
     @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest
-           bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400
-           border border-blue-200 dark:border-blue-700/60 mb-5;
+           bg-gray-100 dark:bg-gray-800/30 text-gray-700 dark:text-gray-300
+           border border-gray-200 dark:border-gray-700/60 mb-5;
+    font-family: 'Libre Baskerville', serif;
   }
 
   /* ============================================================
