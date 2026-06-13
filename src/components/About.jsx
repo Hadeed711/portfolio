@@ -16,6 +16,7 @@ import {
   FaRobot,
   FaLaptopCode,
   FaAward,
+  FaLock,
 } from 'react-icons/fa'
 import {
   SiDjango,
@@ -43,11 +44,8 @@ import {
   SiOpencv,
 } from 'react-icons/si'
 import { useState } from 'react'
-import hackathonIcon from '../assets/icons/hackathon_icon.png'
-import mlIcon from '../assets/icons/ml_icon.png'
-import devIcon from '../assets/icons/dev_icon.png'
-import datascienceIcon from '../assets/icons/datascience_icon.png'
-import achievementIcon from '../assets/icons/achievement_icon.png'
+import ProfileFrame from './ProfileFrame'
+import profileImg from '../assets/profile.jpg'
 
 const About = () => {
   const [activeCategory, setActiveCategory] = useState('frontend')
@@ -87,8 +85,10 @@ const About = () => {
         { name: 'PHP', icon: <SiPhp />, color: 'text-indigo-500' },
         { name: 'C++', icon: <SiCplusplus />, color: 'text-blue-700' },
         { name: 'C', icon: <FaCode />, color: 'text-gray-600 dark:text-gray-300' },
+        { name: 'JWT Auth', icon: <FaLock />, color: 'text-rose-500' },
         { name: 'PostgreSQL', icon: <SiPostgresql />, color: 'text-blue-600' },
         { name: 'MongoDB', icon: <SiMongodb />, color: 'text-green-500' },
+        { name: 'MS SQL', icon: <FaDatabase />, color: 'text-red-600' },
         { name: 'SQL', icon: <FaDatabase />, color: 'text-gray-600 dark:text-gray-400' },
         { name: 'REST APIs', icon: <FaDatabase />, color: 'text-indigo-500' },
       ],
@@ -152,7 +152,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
           {/* Left Column - Content */}
           <div className="space-y-6">
             <div>
@@ -217,53 +217,13 @@ const About = () => {
             </div>
           </div>
 
-          {/* Right Column - Highlights */}
-          <div className="space-y-4">
-            {[
-              {
-                  icon: hackathonIcon,
-                  title: 'International Hackathons',
-                  desc: 'NASA Space Apps 2025, IBM Watson Hackathon, Code with KIRO — building real solutions for global challenges.',
-                  color: 'from-blue-500 to-cyan-500',
-                },
-                {
-                  icon: mlIcon,
-                  title: 'AI & Machine Learning',
-                  desc: 'Regression, Classification, Clustering, Neural Networks — achieving 92% accuracy on production ML models.',
-                  color: 'from-violet-500 to-purple-600',
-                },
-                {
-                  icon: devIcon,
-                  title: 'Full Stack Projects',
-                  desc: 'Delivered real client websites (Sundar Marbles) using React + Django, deployed on Vercel & Azure.',
-                  color: 'from-green-500 to-emerald-600',
-                },
-                {
-                  icon: datascienceIcon,
-                  title: 'Data Science',
-                  desc: 'EDA, Pandas, Scikit-learn, Streamlit dashboards — turning raw data into actionable insights.',
-                  color: 'from-orange-500 to-amber-600',
-                },
-                {
-                  icon: achievementIcon,
-                  title: 'Competition Achievements',
-                  desc: 'IAAC Silver Honour (top 8%), MIT² — #108 out of 533 teams worldwide.',
-                  color: 'from-pink-500 to-rose-600',
-                },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="flex items-start gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
-              >
-                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
-                  <img src={item.icon} alt={item.title} className="w-12 h-12 object-contain" />
-                </div>
-                <div>
-                  <h5 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{item.title}</h5>
-                  <p className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+          {/* Right Column - Profile picture */}
+          <div className="flex justify-center lg:justify-end">
+            <ProfileFrame
+              src={profileImg}
+              alt="Hadeed Ahmad"
+              sizeClass="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80"
+            />
           </div>
         </div>
 

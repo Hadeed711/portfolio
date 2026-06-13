@@ -12,6 +12,9 @@ import Footer from './components/Footer'
 import ProjectDetail from './components/ProjectDetailPage'
 import BackgroundPattern from './components/BackgroundPattern'
 import ScrollProgress from './components/ScrollProgress'
+import CustomCursor from './components/CustomCursor'
+import CardFX from './components/CardFX'
+import ScrollToTopButton from './components/ScrollToTopButton'
 import { projects as allProjects } from './data/projects'
 
 const SITE_URL = 'https://hadeedahmad.vercel.app'
@@ -303,6 +306,8 @@ function App() {
       <ScrollToTop />
       <SeoHead />
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+        <CustomCursor />
+        <CardFX />
         <BackgroundPattern />
         <ScrollProgress />
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -326,6 +331,7 @@ function App() {
         </Routes>
 
         <Footer />
+        <ScrollToTopButton />
       </div>
     </Router>
   )

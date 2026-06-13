@@ -76,7 +76,7 @@ const Contact = () => {
                     href={info.href}
                     target={info.href.startsWith('http') ? '_blank' : undefined}
                     rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 group hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                    className="fx-card flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 group"
                   >
                     <div className={`p-3 rounded-lg bg-gradient-to-r ${info.color} text-white group-hover:scale-110 transition-transform duration-300`}>
                       {info.icon}
@@ -93,7 +93,7 @@ const Contact = () => {
                 ) : (
                   <div
                     key={index}
-                    className="flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+                    className="fx-card flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
                   >
                     <div className={`p-3 rounded-lg bg-gradient-to-r ${info.color} text-white`}>
                       {info.icon}

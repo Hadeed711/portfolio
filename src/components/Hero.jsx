@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FiChevronDown, FiMail } from 'react-icons/fi'
 import { FaGithub, FaLinkedin, FaArrowRight, FaDownload } from 'react-icons/fa'
-import profileImg from '../assets/profile.jpg'
+import CodeWindow from './CodeWindow'
 
 const Hero = () => {
   const [text, setText] = useState('')
@@ -149,21 +149,9 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right Column — Profile Initials Card ── */}
+          {/* ── Right Column — Animated Developer Terminal ── */}
           <div className="order-1 lg:order-2 flex justify-center">
-            <div className="relative">
-              {/* Animated gradient ring */}
-              <div className="absolute -inset-2 gradient-ring rounded-3xl opacity-80 blur-[3px]" />
-
-              {/* Profile card with image */}
-              <div className="relative w-80 h-80 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 via-violet-600 to-indigo-700 flex items-center justify-center">
-                <img
-                  src={profileImg}
-                  alt="Hadeed Ahmad Profile"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+            <CodeWindow />
           </div>
         </div>
       </div>

@@ -232,6 +232,303 @@
 }
 
 /* ============================================================
+   CUSTOM CURSOR  — silver dot + velocity-stretch ring
+============================================================ */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s ease, height 0.18s ease, background 0.2s ease;
+}
+
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  z-index: 9998;
+  --s: 1;
+}
+
+.cursor-ring span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.4px solid rgba(203, 213, 225, 0.7);
+  transform: scale(var(--sx, 1), var(--sy, 1));
+  transition: border-color 0.25s ease, background 0.25s ease, border-width 0.25s ease;
+}
+
+/* hover over interactive — ring blooms */
+.cursor-ring.is-hover {
+  --s: 1.55;
+}
+.cursor-ring.is-hover span {
+  border-color: rgba(226, 232, 240, 0.95);
+  background: rgba(203, 213, 225, 0.12);
+}
+
+/* over editable text — ring collapses to a slim caret bar */
+.cursor-ring.is-text {
+  --s: 0.7;
+}
+.cursor-ring.is-text span {
+  border-radius: 2px;
+  border-width: 0;
+  background: rgba(203, 213, 225, 0.9);
+  width: 3px;
+  margin: 0 auto;
+}
+
+.cursor-dot.is-hidden {
+  opacity: 0;
+}
+
+/* hide the native cursor only when our JS cursor is live on a fine pointer */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ============================================================
+   FX CARD  — 3D tilt + cursor spotlight + silver edge
+============================================================ */
+.fx-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.18, 0.7, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.18, 0.7, 0.2, 1);
+}
+
+.fx-card:hover {
+  box-shadow: 0 26px 50px -22px rgba(15, 23, 32, 0.45);
+}
+
+/* moving spotlight */
+.fx-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(226, 232, 240, 0.22),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.fx-card:hover::after {
+  opacity: 1;
+}
+
+/* silver gradient edge that brightens toward the cursor */
+.fx-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(241, 245, 249, 0.85),
+    rgba(148, 163, 184, 0.15) 60%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.fx-card:hover::before {
+  opacity: 1;
+}
+
+.dark .fx-card:hover {
+  box-shadow: 0 26px 50px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================================
+   PROFILE FRAME  — offset silver ring, tilt, pattern, sheen
+============================================================ */
+.profile-frame {
+  position: relative;
+  width: fit-content;
+  perspective: 1100px;
+}
+
+.profile-frame__pattern {
+  position: absolute;
+  inset: -38px;
+  z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(100, 116, 139, 0.35) 1px, transparent 0);
+  background-size: 15px 15px;
+  -webkit-mask: radial-gradient(closest-side, #000 55%, transparent 100%);
+  mask: radial-gradient(closest-side, #000 55%, transparent 100%);
+  opacity: 0.55;
+  animation: framePulse 6s ease-in-out infinite;
+}
+
+.profile-frame__pattern::after {
+  content: '';
+  position: absolute;
+  inset: 14%;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 50%;
+  animation: spin 24s linear infinite;
+}
+
+.profile-frame__tilt {
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.28s cubic-bezier(0.18, 0.7, 0.2, 1);
+}
+
+/* offset silver line — independent sibling: tilts harder, drifts toward the
+   cursor, and eases on a slower curve so it parallaxes against the photo */
+.profile-frame__ring {
+  position: absolute;
+  inset: -13px;
+  z-index: 2;
+  border-radius: 22px;
+  padding: 1.3px;
+  background: conic-gradient(
+    from 140deg,
+    rgba(226, 232, 240, 0.15),
+    rgba(241, 245, 249, 0.95),
+    rgba(148, 163, 184, 0.2),
+    rgba(226, 232, 240, 0.85),
+    rgba(148, 163, 184, 0.2),
+    rgba(226, 232, 240, 0.15)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transform: translateZ(40px) rotateX(var(--lrx, 0deg)) rotateY(var(--lry, 0deg))
+    translate3d(var(--lx, 0px), var(--ly, 0px), 0);
+  transition: transform 0.55s cubic-bezier(0.16, 0.8, 0.24, 1);
+  box-shadow: 0 0 22px rgba(148, 163, 184, 0.18);
+}
+
+.profile-frame__img {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  transform: translateZ(12px);
+  box-shadow: 0 22px 45px -18px rgba(15, 23, 32, 0.55);
+}
+
+.profile-frame__img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* directional sheen that follows the cursor across the frame */
+.profile-frame__sheen {
+  position: absolute;
+  inset: -13px;
+  border-radius: 22px;
+  pointer-events: none;
+  transform: translateZ(36px);
+  background: radial-gradient(
+    150px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(248, 250, 252, 0.45),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: overlay;
+}
+.profile-frame:hover .profile-frame__sheen {
+  opacity: 1;
+}
+
+@keyframes framePulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.65; }
+}
+
+/* ============================================================
+   CODE WINDOW  — animated developer terminal (Hero)
+============================================================ */
+.code-window {
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  background: linear-gradient(160deg, #0f172a 0%, #131c30 60%, #0b1120 100%);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  box-shadow: 0 30px 70px -28px rgba(15, 23, 32, 0.75),
+    inset 0 1px 0 rgba(226, 232, 240, 0.06);
+}
+
+.code-window__bar {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.code-window__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(180deg, transparent, rgba(148, 163, 184, 0.06), transparent);
+  animation: codeScan 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes codeScan {
+  0%, 100% { transform: translateY(-40px); opacity: 0; }
+  50% { transform: translateY(220px); opacity: 1; }
+}
+
+.caret-blink {
+  animation: caretBlink 1s steps(1) infinite;
+}
+@keyframes caretBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.tech-badge {
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring span,
+  .code-window__scan,
+  .tech-badge,
+  .profile-frame__pattern,
+  .profile-frame__pattern::after {
+    animation: none !important;
+  }
+  .fx-card {
+    transform: none !important;
+  }
+}
+
+/* ============================================================
    CUSTOM SCROLLBAR
 ============================================================ */
 ::-webkit-scrollbar {
@@ -243,10 +540,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  background: linear-gradient(to bottom, #94a3b8, #64748b);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #2563eb, #7c3aed);
+  background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
 }

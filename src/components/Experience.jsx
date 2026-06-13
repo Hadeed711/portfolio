@@ -64,7 +64,7 @@ const Experience = () => {
                 <Briefcase className="text-white" size={20} />
               </div>
 
-              <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+              <div className="fx-card flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
                   <div>
                     <h4 className="text-xl font-bold text-gray-900 dark:text-white">

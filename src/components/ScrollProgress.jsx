@@ -31,8 +31,8 @@ const ScrollProgress = () => {
           className="h-full transition-all duration-300 ease-out"
           style={{
             width: `${scrollProgress}%`,
-            background: 'linear-gradient(to right, #3b82f6, #8b5cf6, #06b6d4)',
-            boxShadow: '0 0 8px rgba(139, 92, 246, 0.5)',
+            background: 'linear-gradient(to right, #cbd5e1, #94a3b8, #64748b)',
+            boxShadow: '0 0 8px rgba(148, 163, 184, 0.5)',
           }}
         />
       </div>

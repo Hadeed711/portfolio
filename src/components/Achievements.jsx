@@ -174,7 +174,7 @@ const Achievements = () => {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-lg border border-gray-100 dark:border-gray-700 text-center hover:-translate-y-0.5 transition-transform duration-300"
+              className="fx-card bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-lg border border-gray-100 dark:border-gray-700 text-center"
             >
               <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mx-auto mb-3`}>
                 {stat.icon}
@@ -195,7 +195,7 @@ const Achievements = () => {
             {hackathons.map((h, index) => (
               <div
                 key={index}
-                className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring} hover:-translate-y-1 hover:shadow-xl transition-all duration-300`}
+                className={`fx-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring}`}
               >
                 {/* Content */}
                 <div className="p-5">
