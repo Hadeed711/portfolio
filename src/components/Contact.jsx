@@ -40,9 +40,9 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative">
+    <section id="contact" className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800/50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">Let's Talk</span>
           <h2 className="text-4xl md:text-5xl font-extrabold gradient-text mb-4">
             Get In Touch
@@ -85,7 +85,7 @@ const Contact = () => {
                       <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
                         {info.label}
                       </div>
-                      <div className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-sm">
+                      <div className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-sm break-all">
                         {info.value}
                       </div>
                     </div>
@@ -127,7 +127,7 @@ const Contact = () => {
           </div>
 
           {/* Right Column — Email CTA */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+          <div data-reveal className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
             <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
               Send Me a Message
             </h3>
@@ -177,8 +177,8 @@ const Contact = () => {
         </div>
 
         {/* CTA Banner */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-blue-600/10 via-violet-600/10 to-indigo-600/10 dark:from-blue-500/10 dark:via-violet-500/10 rounded-2xl p-8 border border-blue-200 dark:border-blue-800/50">
+        <div className="text-center mt-12 sm:mt-16">
+          <div data-reveal className="bg-gradient-to-r from-blue-600/10 via-violet-600/10 to-indigo-600/10 dark:from-blue-500/10 dark:via-violet-500/10 rounded-2xl p-6 sm:p-8 border border-blue-200 dark:border-blue-800/50">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
               Ready to Build Something Together?
             </h3>

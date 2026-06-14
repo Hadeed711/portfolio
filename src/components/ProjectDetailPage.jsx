@@ -53,7 +53,7 @@ const ProjectDetailPage = () => {
         </nav>
 
         <article className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          <div className="p-8 md:p-12">
+          <div className="p-6 sm:p-8 md:p-12">
 
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-3 mb-6 text-xs uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">

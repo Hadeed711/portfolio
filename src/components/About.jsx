@@ -140,9 +140,9 @@ const About = () => {
   }
 
   return (
-    <section id="about" className="py-20 bg-white dark:bg-gray-900/50 pattern-grid">
+    <section id="about" className="py-16 sm:py-20 bg-white dark:bg-gray-900/50 pattern-grid">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">Who I Am</span>
           <h2 className="text-3xl md:text-4xl font-extrabold gradient-text mb-4">
             About Me
@@ -152,9 +152,9 @@ const About = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-start mb-12 sm:mb-16">
           {/* Left Column - Content */}
-          <div className="space-y-6">
+          <div data-reveal className="space-y-6">
             <div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
                 Building AI-Driven Digital Solutions
@@ -172,6 +172,15 @@ const About = () => {
               </p>
             </div>
 
+            {/* Profile picture — mobile only, sits right after the description */}
+            <div className="lg:hidden flex justify-center">
+              <ProfileFrame
+                src={profileImg}
+                alt="Hadeed Ahmad"
+                sizeClass="w-56 h-56 sm:w-64 sm:h-64"
+              />
+            </div>
+
             {/* Quick facts */}
             <div className="grid grid-cols-2 gap-4">
               {[
@@ -184,7 +193,7 @@ const About = () => {
               ].map((item) => (
                 <div key={item.label} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
                   <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">{item.label}</div>
-                  <div className={`font-semibold text-gray-900 dark:text-white ${item.small ? 'text-xs' : 'text-sm'}`}>{item.value}</div>
+                  <div className={`font-semibold text-gray-900 dark:text-white break-words ${item.small ? 'text-xs' : 'text-sm'}`}>{item.value}</div>
                 </div>
               ))}
             </div>
@@ -217,8 +226,8 @@ const About = () => {
             </div>
           </div>
 
-          {/* Right Column - Profile picture */}
-          <div className="flex justify-center lg:justify-end">
+          {/* Right Column - Profile picture (desktop only) */}
+          <div data-reveal className="hidden lg:flex justify-center lg:justify-end">
             <ProfileFrame
               src={profileImg}
               alt="Hadeed Ahmad"
@@ -266,7 +275,7 @@ const About = () => {
           </div>
 
           {/* Active Category Technologies */}
-          <div className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700">
+          <div data-reveal className="bg-white dark:bg-gray-800/50 rounded-2xl p-5 sm:p-8 shadow-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-center gap-3 mb-8">
               <div className={`p-3 rounded-xl bg-gradient-to-r ${techCategories[activeCategory].color}`}>
                 <span className="text-white text-2xl">
@@ -278,7 +287,7 @@ const About = () => {
               </h4>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
               {techCategories[activeCategory].technologies.map((tech) => (
                 <div
                   key={`${activeCategory}-${tech.name}`}

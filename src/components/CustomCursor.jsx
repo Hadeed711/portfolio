@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * A custom pointer made of two parts:
@@ -11,10 +11,14 @@ import { useEffect, useRef } from 'react'
 const CustomCursor = () => {
   const dotRef = useRef(null)
   const ringRef = useRef(null)
+  // Only enable on devices that have a mouse/trackpad (laptops, PCs, even
+  // touch-laptops). Pure touch devices (phones/tablets) get nothing rendered.
+  const [enabled] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(any-pointer: fine)').matches
+  )
 
   useEffect(() => {
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    if (fine === false) return
+    if (!enabled) return
 
     const dot = dotRef.current
     const ring = ringRef.current
@@ -97,7 +101,9 @@ const CustomCursor = () => {
       window.removeEventListener('blur', onLeave)
       document.documentElement.classList.remove('has-custom-cursor')
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <>

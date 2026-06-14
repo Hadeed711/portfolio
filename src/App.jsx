@@ -13,6 +13,7 @@ import ProjectDetail from './components/ProjectDetailPage'
 import BackgroundPattern from './components/BackgroundPattern'
 import ScrollProgress from './components/ScrollProgress'
 import CustomCursor from './components/CustomCursor'
+import MobileFX from './components/MobileFX'
 import CardFX from './components/CardFX'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import { projects as allProjects } from './data/projects'
@@ -307,6 +308,7 @@ function App() {
       <SeoHead />
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
         <CustomCursor />
+        <MobileFX />
         <CardFX />
         <BackgroundPattern />
         <ScrollProgress />

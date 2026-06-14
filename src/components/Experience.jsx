@@ -41,9 +41,9 @@ const Experience = () => {
   ]
 
   return (
-    <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative">
+    <section id="experience" className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800/50 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">Career</span>
           <h2 className="text-4xl md:text-5xl font-extrabold gradient-text mb-4">
             Experience
@@ -55,7 +55,7 @@ const Experience = () => {
 
         <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <div key={index} className="relative flex items-start gap-5">
+            <div key={index} className="relative flex items-start gap-4 sm:gap-5">
               {index < experiences.length - 1 && (
                 <div className="absolute left-6 top-14 w-0.5 h-full bg-gradient-to-b from-blue-400/60 to-transparent" />
               )}
@@ -64,7 +64,7 @@ const Experience = () => {
                 <Briefcase className="text-white" size={20} />
               </div>
 
-              <div className="fx-card flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+              <div className="fx-card flex-1 bg-white dark:bg-gray-800 rounded-2xl p-5 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
                   <div>
                     <h4 className="text-xl font-bold text-gray-900 dark:text-white">

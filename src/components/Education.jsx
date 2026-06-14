@@ -47,9 +47,9 @@ const Education = () => {
   ]
 
   return (
-    <section id="education" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative">
+    <section id="education" className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-800/50 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">My Background</span>
           <h2 className="text-4xl md:text-5xl font-extrabold gradient-text mb-4">
             Education
@@ -61,11 +61,11 @@ const Education = () => {
 
         <div className="space-y-8">
           {education.map((edu, index) => (
-            <div key={index} className="flex items-start gap-5">
+            <div key={index} className="flex items-start gap-3 sm:gap-5">
               {/* Timeline dot */}
               <div className="flex-shrink-0 flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full flex items-center justify-center shadow-lg">
-                  <GraduationCap className="text-white" size={20} />
+                <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full flex items-center justify-center shadow-lg">
+                  <GraduationCap className="text-white w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 {index < education.length - 1 && (
                   <div className="w-0.5 flex-1 mt-3 bg-gradient-to-b from-violet-400 to-transparent min-h-[2rem]" />
@@ -73,9 +73,9 @@ const Education = () => {
               </div>
 
               {/* Card */}
-              <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+              <div data-reveal className="flex-1 min-w-0 bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
-                  <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
                     {edu.degree}
                   </h4>
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 flex-shrink-0">

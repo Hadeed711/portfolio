@@ -529,6 +529,59 @@
 }
 
 /* ============================================================
+   MOBILE / TOUCH FX  — scoped to coarse pointers via html.is-touch
+   (replaces the desktop custom cursor; never affects laptop view)
+============================================================ */
+
+/* prevent any accidental horizontal scroll on small screens */
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* scroll-reveal: blocks ease up + fade in as they enter the viewport */
+html.is-touch .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.6s cubic-bezier(0.22, 0.7, 0.2, 1),
+    transform 0.6s cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+html.is-touch .reveal.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* tap-glow: a centred sheen blooms on press (cards have no hover on touch) */
+html.is-touch .fx-card:active::after {
+  opacity: 1;
+  background: radial-gradient(
+    420px circle at 50% 50%,
+    rgba(226, 232, 240, 0.22),
+    transparent 55%
+  );
+}
+
+/* gentle press feedback on tappable cards */
+html.is-touch .fx-card {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* reveal hover-only actions (e.g. card GitHub buttons) on touch devices */
+html.is-touch .touch-reveal {
+  opacity: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-touch .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
    CUSTOM SCROLLBAR
 ============================================================ */
 ::-webkit-scrollbar {

@@ -25,9 +25,9 @@ const Projects = () => {
     filter === 'all' ? featuredProjects : featuredProjects.filter((p) => p.category === filter)
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900 relative">
+    <section id="projects" className="py-16 sm:py-20 bg-white dark:bg-gray-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">Portfolio</span>
           <h2 className="text-4xl md:text-5xl font-extrabold gradient-text mb-4">
             My Projects
@@ -38,7 +38,7 @@ const Projects = () => {
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12">
           {categories.map((category) => (
             <button
               key={category.id}
@@ -90,7 +90,7 @@ const Projects = () => {
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
 
                     {/* Actions */}
-                    <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="touch-reveal absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <a
                         href={project.github}
                         target="_blank"
@@ -203,7 +203,7 @@ const Projects = () => {
                         {project.tag}
                       </span>
                     </div>
-                    <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="touch-reveal absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <a
                         href={project.github}
                         target="_blank"

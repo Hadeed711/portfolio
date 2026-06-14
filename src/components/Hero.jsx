@@ -67,22 +67,14 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
           {/* ── Left Column ── */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
-
-            {/* Status badge */}
-            <div className="flex justify-center lg:justify-start mb-6">
-              <span className="section-badge">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Available for opportunities
-              </span>
-            </div>
+          <div data-reveal className="order-2 lg:order-1 text-center lg:text-left">
 
             {/* Name */}
             <div className="mb-6">
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 font-semibold tracking-[0.2em] uppercase">
                 Hello, I'm
               </p>
-              <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-4">
                 <span className="gradient-text">Hadeed</span>
                 <br />
                 <span className="text-gray-900 dark:text-white">Ahmad</span>
@@ -96,10 +88,15 @@ const Hero = () => {
               </div>
             </div>
 
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg leading-relaxed">
               CS undergraduate specializing in Machine Learning, Data Science, and Full-Stack Development.
               Participated in NASA Space Apps and IBM AI hackathons. Passionate about AI research.
             </p>
+
+            {/* Animated terminal — mobile only, sits between description and socials */}
+            <div className="lg:hidden flex justify-center mb-8">
+              <CodeWindow />
+            </div>
 
             {/* Social links */}
             <div className="flex justify-center lg:justify-start gap-3 mb-8">
@@ -139,7 +136,7 @@ const Hero = () => {
             </div>
 
             {/* Stats */}
-            <div className="flex justify-center lg:justify-start gap-10">
+            <div className="flex justify-center lg:justify-start gap-6 sm:gap-10">
               {stats.map((s, i) => (
                 <div key={i} className="text-center lg:text-left">
                   <div className="text-3xl font-extrabold gradient-text">{s.value}</div>
@@ -149,20 +146,22 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right Column — Animated Developer Terminal ── */}
-          <div className="order-1 lg:order-2 flex justify-center">
+          {/* ── Right Column — Animated Developer Terminal (desktop only) ── */}
+          <div data-reveal className="hidden lg:flex order-1 lg:order-2 justify-center">
             <CodeWindow />
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <FiChevronDown
-          size={28}
-          className="text-gray-400 cursor-pointer hover:text-blue-600 transition-colors duration-300"
-          onClick={() => document.querySelector('#about').scrollIntoView({ behavior: 'smooth' })}
-        />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="animate-bounce">
+          <FiChevronDown
+            size={28}
+            className="text-gray-400 cursor-pointer hover:text-blue-600 transition-colors duration-300"
+            onClick={() => document.querySelector('#about').scrollIntoView({ behavior: 'smooth' })}
+          />
+        </div>
       </div>
     </section>
   )

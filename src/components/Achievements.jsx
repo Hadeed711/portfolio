@@ -151,9 +151,9 @@ const Achievements = () => {
   ]
 
   return (
-    <section id="achievements" className="py-20 bg-white dark:bg-gray-900 relative">
+    <section id="achievements" className="py-16 sm:py-20 bg-white dark:bg-gray-900 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="section-badge">Credentials</span>
           <h2 className="text-4xl md:text-5xl font-extrabold gradient-text mb-4">
             Achievements & Awards
@@ -164,7 +164,7 @@ const Achievements = () => {
         </div>
 
         {/* Stats Banner */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-12 sm:mb-16">
           {[
             { value: '5', label: 'Hackathons', icon: <Trophy size={20} />, color: 'from-blue-500 to-violet-600' },
             { value: 'Top 8%', label: 'IAAC Global', icon: <Medal size={20} />, color: 'from-yellow-500 to-amber-600' },
@@ -186,16 +186,20 @@ const Achievements = () => {
         </div>
 
         {/* Hackathons Grid */}
-        <div className="mb-16">
+        <div className="mb-12 sm:mb-16">
           <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
             <Trophy className="text-blue-500" size={26} />
             Hackathons & Competitions
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            className="cert-slider flex gap-5 overflow-x-auto pb-3 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0"
+            style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
             {hackathons.map((h, index) => (
               <div
                 key={index}
-                className={`fx-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring}`}
+                style={{ scrollSnapAlign: 'start' }}
+                className={`fx-card flex-shrink-0 w-[82%] sm:w-80 md:w-auto bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring}`}
               >
                 {/* Content */}
                 <div className="p-5">
@@ -230,7 +234,7 @@ const Achievements = () => {
         </div>
 
         {/* Certifications Slider */}
-        <div className="mb-16">
+        <div data-reveal className="mb-12 sm:mb-16">
           <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
             <Star className="text-violet-500" size={26} />
             Courses & Certifications
@@ -243,7 +247,7 @@ const Achievements = () => {
               onClick={() => scroll(-1)}
               disabled={!canLeft}
               aria-label="Previous"
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
+              className={`hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
                 ${canLeft
                   ? 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'
                   : 'border-gray-100 dark:border-gray-800 opacity-30 cursor-not-allowed'}`}
@@ -292,7 +296,7 @@ const Achievements = () => {
               onClick={() => scroll(1)}
               disabled={!canRight}
               aria-label="Next"
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
+              className={`hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
                 ${canRight
                   ? 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'
                   : 'border-gray-100 dark:border-gray-800 opacity-30 cursor-not-allowed'}`}
@@ -308,21 +312,21 @@ const Achievements = () => {
             <ClipboardList className="text-teal-500" size={26} />
             Standardized Assessment
           </h3>
-          <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
-            <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
+          <div data-reveal className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
+            <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+              <div className="min-w-0">
                 <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">Government of Pakistan</p>
-                <h4 className="text-white text-xl font-bold leading-snug">
+                <h4 className="text-white text-lg sm:text-xl font-bold leading-snug">
                   NSCT — National Skills Competitive Test
                 </h4>
-                <p className="text-white/70 text-sm mt-1">Apr 04, 2026 &nbsp;·&nbsp; Score: 59 / 100</p>
+                <p className="text-white/70 text-xs sm:text-sm mt-1">Apr 04, 2026 &nbsp;·&nbsp; Score: 59 / 100</p>
               </div>
-              <div className="text-center sm:text-right flex-shrink-0">
-                <div className="text-5xl font-extrabold text-white leading-none">84.6</div>
-                <div className="text-white/80 text-sm font-semibold mt-1">Percentile</div>
+              <div className="flex items-end gap-2 sm:flex-col sm:items-end sm:text-right flex-shrink-0">
+                <div className="text-4xl sm:text-5xl font-extrabold text-white leading-none">84.6</div>
+                <div className="text-white/80 text-sm font-semibold sm:mt-1">Percentile</div>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">Subject-wise breakdown</p>
               <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3">
                 {[
@@ -338,9 +342,9 @@ const Achievements = () => {
                   { subject: 'AI / ML & Data Analytics', obtained: 5, total: 10 },
                 ].map((row) => (
                   <div key={row.subject} className="flex items-center justify-between gap-3">
-                    <span className="text-xs text-gray-600 dark:text-gray-400 truncate">{row.subject}</span>
+                    <span className="text-xs text-gray-600 dark:text-gray-400 truncate min-w-0 flex-1">{row.subject}</span>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <div className="w-20 bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                      <div className="w-14 sm:w-20 bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
                         <div
                           className="h-1.5 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500"
                           style={{ width: `${(row.obtained / row.total) * 100}%` }}
