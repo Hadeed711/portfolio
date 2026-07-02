@@ -4,7 +4,7 @@ import ImageModal from './ImageModal'
 import iaacImg from '../assets/iaac_img.png'
 import mitImg from '../assets/mit_img.jfif'
 import nasaImg from '../assets/nasa_img.png'
-import ibmImg from '../assets/ibmcloud_img.png'
+import ibmHackImg from '../assets/ibm_hack.png'
 import kiroImg from '../assets/kiro_img.png'
 import advGoogleImg from '../assets/advanalyticsgoogle_img.png'
 import pythonImg from '../assets/python_img.png'
@@ -18,14 +18,6 @@ const ImgPlaceholder = ({ label = 'Image', aspect = 'aspect-[4/3]' }) => (
     <Camera size={20} className="text-gray-300 dark:text-gray-500 mb-1.5" />
     <p className="text-xs text-gray-300 dark:text-gray-500 font-medium">{label}</p>
   </div>
-)
-
-const CertImage = ({ src, alt = 'Certificate' }) => (
-  <img
-    src={src}
-    alt={alt}
-    className="w-full h-full object-cover rounded-lg"
-  />
 )
 
 const Achievements = () => {
@@ -52,8 +44,6 @@ const Achievements = () => {
       result: 'Final Round — Silver Honour',
       detail: 'Secured 16/20 points. Ranked in the top 8% among all global participants.',
       icon: '🥈',
-      color: 'from-yellow-400 to-amber-500',
-      ring: 'border-yellow-400',
       year: '2024',
       image: iaacImg,
     },
@@ -62,8 +52,6 @@ const Achievements = () => {
       result: '#108 out of 533 Teams Worldwide',
       detail: 'Achieved 550/900 points and ranked 108 among 533 competing teams globally.',
       icon: '🏛️',
-      color: 'from-red-500 to-rose-600',
-      ring: 'border-red-500',
       year: '2024',
       image: mitImg,
     },
@@ -72,8 +60,6 @@ const Achievements = () => {
       result: 'International Participant',
       detail: 'Built ExoLume — exoplanet detection app using ML with NASA datasets. Presented to U.S.-based judges.',
       icon: '🚀',
-      color: 'from-blue-600 to-indigo-700',
-      ring: 'border-blue-500',
       year: '2025',
       image: nasaImg,
     },
@@ -82,18 +68,14 @@ const Achievements = () => {
       result: 'AI Urban Planning Solution',
       detail: 'AI-powered city planning box detecting urban hotspots within 10 km² with budget-aware suggestions.',
       icon: '🏙️',
-      color: 'from-violet-500 to-purple-700',
-      ring: 'border-violet-500',
       year: '2025',
-      image: ibmImg,
+      image: ibmHackImg,
     },
     {
       title: 'Code with KIRO Hackathon 2025',
       result: 'Space Learning App',
       detail: 'Built Astroplay — interactive space learning app with 3D planet renders, quizzes, and data visualizations.',
       icon: '🌌',
-      color: 'from-cyan-500 to-teal-600',
-      ring: 'border-cyan-500',
       year: '2025',
       image: kiroImg,
     },
@@ -104,48 +86,36 @@ const Achievements = () => {
       name: 'Advanced Data Analyst',
       issuer: 'Google — Coursera',
       date: 'Feb 06, 2025',
-      color: 'from-blue-500 to-cyan-500',
-      icon: '📊',
       image: advGoogleImg,
     },
     {
       name: 'Getting Started with Python',
       issuer: 'University of Michigan — Coursera',
       date: 'Feb 06, 2025',
-      color: 'from-violet-500 to-indigo-600',
-      icon: '🐍',
       image: pythonImg,
     },
     {
       name: 'Web Development Fundamentals',
       issuer: 'SoloLearn',
       date: '2024',
-      color: 'from-orange-400 to-red-500',
-      icon: '🌐',
       image: webdevImg,
     },
     {
       name: 'Build React Applications',
       issuer: 'Meta — Coursera',
       date: '2024',
-      color: 'from-blue-400 to-cyan-500',
-      icon: '⚛️',
       image: reactImg,
     },
     {
       name: 'Neural Networks and Deep Learning',
       issuer: 'DeepLearning.AI — Coursera',
       date: '2024',
-      color: 'from-emerald-500 to-teal-600',
-      icon: '🧠',
       image: neuralNetImg,
     },
     {
       name: 'IBM Cloud Computing Fundamentals',
       issuer: 'IBM — Coursera',
       date: '2024',
-      color: 'from-blue-600 to-indigo-700',
-      icon: '☁️',
       image: ibmCloudImg,
     },
   ]
@@ -163,33 +133,37 @@ const Achievements = () => {
           </p>
         </div>
 
-        {/* Stats Banner */}
+        {/* Stats Ledger */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-12 sm:mb-16">
           {[
-            { value: '5', label: 'Hackathons', icon: <Trophy size={20} />, color: 'from-blue-500 to-violet-600' },
-            { value: 'Top 8%', label: 'IAAC Global', icon: <Medal size={20} />, color: 'from-yellow-500 to-amber-600' },
-            { value: '#108', label: 'MIT² / 533 Teams', icon: <Globe size={20} />, color: 'from-red-500 to-rose-600' },
-            { value: '6', label: 'Certifications', icon: <Award size={20} />, color: 'from-green-500 to-emerald-600' },
-            { value: '84.6th', label: 'NSCT Percentile', icon: <ClipboardList size={20} />, color: 'from-teal-500 to-cyan-600' },
+            { value: '5', label: 'Hackathons', icon: <Trophy size={18} /> },
+            { value: 'Top 8%', label: 'IAAC Global', icon: <Medal size={18} /> },
+            { value: '#108', label: 'MIT² / 533 Teams', icon: <Globe size={18} /> },
+            { value: '6', label: 'Certifications', icon: <Award size={18} /> },
+            { value: '84.6th', label: 'NSCT Percentile', icon: <ClipboardList size={18} /> },
           ].map((stat) => (
             <div
               key={stat.label}
-              className="fx-card bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-lg border border-gray-100 dark:border-gray-700 text-center"
+              className="fx-card relative bg-[#faf9f7] dark:bg-gray-800 rounded-lg p-5 shadow-md border border-gray-400/70 dark:border-gray-500/70 text-center"
             >
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mx-auto mb-3`}>
+              <span className="v-rule" aria-hidden="true" />
+              <div className="flex justify-center text-amber-700/90 dark:text-amber-400/90 mb-2.5">
                 {stat.icon}
               </div>
-              <div className="text-2xl font-extrabold gradient-text">{stat.value}</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">{stat.label}</div>
+              <div className="font-display text-2xl font-extrabold text-gray-900 dark:text-white">{stat.value}</div>
+              <div className="v-mono text-[9px] uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400 mt-1.5">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Hackathons Grid */}
         <div className="mb-12 sm:mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
-            <Trophy className="text-blue-500" size={26} />
-            Hackathons & Competitions
+          <h3 className="flex items-center gap-3 mb-8">
+            <Trophy className="text-amber-700 dark:text-amber-500 flex-shrink-0" size={24} />
+            <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+              Hackathons & Competitions
+            </span>
+            <span className="hidden sm:block flex-1 h-px bg-gradient-to-r from-gray-400/70 to-transparent dark:from-gray-600" />
           </h3>
           <div
             className="cert-slider flex gap-5 overflow-x-auto pb-3 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0"
@@ -199,31 +173,41 @@ const Achievements = () => {
               <div
                 key={index}
                 style={{ scrollSnapAlign: 'start' }}
-                className={`fx-card flex-shrink-0 w-[82%] sm:w-80 md:w-auto bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border-2 ${h.ring}`}
+                className="fx-card group relative flex-shrink-0 w-[82%] sm:w-80 md:w-auto bg-[#faf9f7] dark:bg-gray-800 rounded-lg overflow-hidden shadow-md border border-gray-400/80 dark:border-gray-500/70"
               >
-                {/* Content */}
+                <span className="v-rule" aria-hidden="true" />
+
                 <div className="p-5">
-                  <div className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-gradient-to-r ${h.color} text-white mb-3`}>
-                    {h.year}
+                  {/* Plate header — emblem + year stamp */}
+                  <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-gray-300/90 dark:border-gray-600">
+                    <span className="text-xl select-none">{h.icon}</span>
+                    <span className="stamp stamp--tilt text-amber-800/90 dark:text-amber-400/90">
+                      {h.year}
+                    </span>
                   </div>
-                  <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-2 leading-snug">
+
+                  <h4 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-1.5 leading-snug">
                     {h.title}
                   </h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  <p className="text-xs italic text-gray-700 dark:text-gray-300 mb-2">
                     {h.result}
                   </p>
                   <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
                     {h.detail}
                   </p>
 
-                  {/* Certificate / result image placeholder */}
+                  {/* Matted certificate photograph */}
                   {h.image ? (
-                    <img
-                      src={h.image}
-                      alt={`${h.title} certificate`}
-                      className="w-full aspect-[16/9] object-cover rounded-lg cursor-pointer"
+                    <div
+                      className="rounded-md overflow-hidden border border-gray-400/70 dark:border-gray-500/70 cursor-pointer"
                       onClick={() => setZoomedImage(h.image)}
-                    />
+                    >
+                      <img
+                        src={h.image}
+                        alt={`${h.title} certificate`}
+                        className="v-photo w-full aspect-[16/9] object-cover"
+                      />
+                    </div>
                   ) : (
                     <ImgPlaceholder label="Certificate / Result" aspect="aspect-[16/9]" />
                   )}
@@ -235,9 +219,12 @@ const Achievements = () => {
 
         {/* Certifications Slider */}
         <div data-reveal className="mb-12 sm:mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
-            <Star className="text-violet-500" size={26} />
-            Courses & Certifications
+          <h3 className="flex items-center gap-3 mb-8">
+            <Star className="text-amber-700 dark:text-amber-500 flex-shrink-0" size={24} />
+            <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+              Courses & Certifications
+            </span>
+            <span className="hidden sm:block flex-1 h-px bg-gradient-to-r from-gray-400/70 to-transparent dark:from-gray-600" />
           </h3>
 
           {/* Slider wrapper */}
@@ -249,7 +236,7 @@ const Achievements = () => {
               aria-label="Previous"
               className={`hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
                 ${canLeft
-                  ? 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'
+                  ? 'border-gray-300 dark:border-gray-600 hover:border-amber-700 dark:hover:border-amber-500 hover:text-amber-800 dark:hover:text-amber-400 cursor-pointer'
                   : 'border-gray-100 dark:border-gray-800 opacity-30 cursor-not-allowed'}`}
             >
               <ChevronLeft size={16} />
@@ -265,26 +252,35 @@ const Achievements = () => {
               {certifications.map((cert, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-64 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
+                  className="group relative flex-shrink-0 w-64 bg-[#faf9f7] dark:bg-gray-800 rounded-lg overflow-hidden shadow-md border border-gray-400/80 dark:border-gray-500/70 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
                   style={{ scrollSnapAlign: 'start' }}
                 >
-                  <div className={`relative bg-gradient-to-br ${cert.color} p-4`}>
+                  <span className="v-rule" aria-hidden="true" />
+
+                  {/* Matted certificate */}
+                  <div className="p-4 pb-0">
                     {cert.image ? (
-                      <img
-                        src={cert.image}
-                        alt={cert.name}
-                        className="w-full aspect-[4/3] object-cover rounded-lg cursor-pointer"
+                      <div
+                        className="rounded-md overflow-hidden border border-gray-400/70 dark:border-gray-500/70 cursor-pointer"
                         onClick={() => setZoomedImage(cert.image)}
-                      />
+                      >
+                        <img
+                          src={cert.image}
+                          alt={cert.name}
+                          className="v-photo w-full aspect-[4/3] object-cover"
+                        />
+                      </div>
                     ) : (
                       <ImgPlaceholder label="Certificate Image" aspect="aspect-[4/3]" />
                     )}
                   </div>
                   <div className="p-4">
-                    <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1 leading-snug">
+                    <h4 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-1.5 leading-snug">
                       {cert.name}
                     </h4>
-                    <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1">{cert.issuer}</p>
+                    <p className="v-mono text-[9px] uppercase tracking-[0.14em] text-amber-800/90 dark:text-amber-400/90 mb-1">
+                      {cert.issuer}
+                    </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">{cert.date}</p>
                   </div>
                 </div>
@@ -298,7 +294,7 @@ const Achievements = () => {
               aria-label="Next"
               className={`hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 p-2.5 rounded-full bg-white dark:bg-gray-800 border shadow-md transition-all duration-200
                 ${canRight
-                  ? 'border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer'
+                  ? 'border-gray-300 dark:border-gray-600 hover:border-amber-700 dark:hover:border-amber-500 hover:text-amber-800 dark:hover:text-amber-400 cursor-pointer'
                   : 'border-gray-100 dark:border-gray-800 opacity-30 cursor-not-allowed'}`}
             >
               <ChevronRight size={16} />
@@ -308,26 +304,29 @@ const Achievements = () => {
 
         {/* Government Standardized Test */}
         <div>
-          <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
-            <ClipboardList className="text-teal-500" size={26} />
-            Standardized Assessment
+          <h3 className="flex items-center gap-3 mb-8">
+            <ClipboardList className="text-amber-700 dark:text-amber-500 flex-shrink-0" size={24} />
+            <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+              Standardized Assessment
+            </span>
+            <span className="hidden sm:block flex-1 h-px bg-gradient-to-r from-gray-400/70 to-transparent dark:from-gray-600" />
           </h3>
-          <div data-reveal className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
-            <div className="bg-gradient-to-r from-teal-500 to-cyan-600 p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div data-reveal className="relative bg-[#faf9f7] dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-400/80 dark:border-gray-500/70">
+            <div className="bg-gray-900 dark:bg-gray-950 border-b-[3px] border-double border-amber-700/60 p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
               <div className="min-w-0">
-                <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">Government of Pakistan</p>
-                <h4 className="text-white text-lg sm:text-xl font-bold leading-snug">
+                <p className="v-mono text-amber-400/80 text-[10px] font-semibold uppercase tracking-[0.22em] mb-1.5">Government of Pakistan</p>
+                <h4 className="font-display text-white text-lg sm:text-xl font-bold leading-snug">
                   NSCT — National Skills Competitive Test
                 </h4>
-                <p className="text-white/70 text-xs sm:text-sm mt-1">Apr 04, 2026 &nbsp;·&nbsp; Score: 59 / 100</p>
+                <p className="text-gray-400 text-xs sm:text-sm mt-1">Apr 04, 2026 &nbsp;·&nbsp; Score: 59 / 100</p>
               </div>
               <div className="flex items-end gap-2 sm:flex-col sm:items-end sm:text-right flex-shrink-0">
-                <div className="text-4xl sm:text-5xl font-extrabold text-white leading-none">84.6</div>
-                <div className="text-white/80 text-sm font-semibold sm:mt-1">Percentile</div>
+                <div className="font-display text-4xl sm:text-5xl font-extrabold text-amber-400 leading-none">84.6</div>
+                <div className="v-mono text-gray-400 text-[10px] uppercase tracking-[0.18em] font-semibold sm:mt-1.5">Percentile</div>
               </div>
             </div>
             <div className="p-4 sm:p-6">
-              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4">Subject-wise breakdown</p>
+              <p className="v-mono text-[10px] uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400 font-medium mb-4">Subject-wise breakdown</p>
               <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3">
                 {[
                   { subject: 'Operating System', obtained: 2, total: 5 },
@@ -344,9 +343,9 @@ const Achievements = () => {
                   <div key={row.subject} className="flex items-center justify-between gap-3">
                     <span className="text-xs text-gray-600 dark:text-gray-400 truncate min-w-0 flex-1">{row.subject}</span>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <div className="w-14 sm:w-20 bg-gray-100 dark:bg-gray-700 rounded-full h-1.5">
+                      <div className="w-14 sm:w-20 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                         <div
-                          className="h-1.5 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500"
+                          className="h-1.5 rounded-full bg-gradient-to-r from-amber-700 to-amber-500"
                           style={{ width: `${(row.obtained / row.total) * 100}%` }}
                         />
                       </div>
@@ -361,9 +360,9 @@ const Achievements = () => {
           </div>
         </div>
       </div>
-      
-      <ImageModal 
-        image={zoomedImage} 
+
+      <ImageModal
+        image={zoomedImage}
         alt="Certification/Achievement"
         isOpen={!!zoomedImage}
         onClose={() => setZoomedImage(null)}

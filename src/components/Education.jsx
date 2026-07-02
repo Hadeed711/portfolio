@@ -64,18 +64,19 @@ const Education = () => {
             <div key={index} className="flex items-start gap-3 sm:gap-5">
               {/* Timeline dot */}
               <div className="flex-shrink-0 flex flex-col items-center">
-                <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full flex items-center justify-center shadow-lg">
-                  <GraduationCap className="text-white w-4 h-4 sm:w-5 sm:h-5" />
+                <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-400 rounded-full flex items-center justify-center shadow-lg">
+                  <GraduationCap className="text-white dark:text-gray-900 w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 {index < education.length - 1 && (
-                  <div className="w-0.5 flex-1 mt-3 bg-gradient-to-b from-violet-400 to-transparent min-h-[2rem]" />
+                  <div className="w-0.5 flex-1 mt-3 bg-gradient-to-b from-gray-400 to-transparent dark:from-gray-500 min-h-[2rem]" />
                 )}
               </div>
 
               {/* Card */}
-              <div data-reveal className="flex-1 min-w-0 bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+              <div data-reveal className="relative flex-1 min-w-0 bg-[#faf9f7] dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg border border-gray-400/80 dark:border-gray-500/70">
+                <span className="v-rule" aria-hidden="true" />
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
-                  <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+                  <h4 className="font-display text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
                     {edu.degree}
                   </h4>
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 flex-shrink-0">
@@ -84,8 +85,8 @@ const Education = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center text-blue-600 dark:text-blue-400 mb-4 gap-1 flex-wrap">
-                  <MapPin size={15} className="flex-shrink-0" />
+                <div className="flex items-center text-gray-800 dark:text-gray-200 mb-4 gap-1 flex-wrap">
+                  <MapPin size={15} className="flex-shrink-0 text-amber-700 dark:text-amber-500" />
                   <span className="font-semibold">{edu.institution}</span>
                   <span className="text-gray-400 mx-1">·</span>
                   <span className="text-gray-500 dark:text-gray-400 text-sm">{edu.location}</span>
@@ -93,23 +94,23 @@ const Education = () => {
 
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                   {edu.gpa && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-blue-100 to-violet-100 dark:from-blue-900/30 dark:to-violet-900/30 text-blue-700 dark:text-blue-300 font-semibold">
-                      <Award size={13} className="mr-1" />
+                    <span className="stamp text-amber-800/90 dark:text-amber-400/90">
+                      <Award size={11} />
                       GPA: {edu.gpa}
                     </span>
                   )}
                   {edu.marks && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 text-amber-700 dark:text-amber-300 font-semibold">
-                      <Award size={13} className="mr-1" />
+                    <span className="stamp text-amber-800/90 dark:text-amber-400/90">
+                      <Award size={11} />
                       {edu.marks} marks
                     </span>
                   )}
                   {edu.rank && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 text-yellow-700 dark:text-yellow-300 font-semibold">
+                    <span className="stamp text-amber-800/90 dark:text-amber-400/90">
                       🏅 {edu.rank}
                     </span>
                   )}
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${edu.badgeColor}`}>
+                  <span className="stamp text-gray-600 dark:text-gray-300">
                     {edu.badge}
                   </span>
                 </div>
@@ -118,16 +119,16 @@ const Education = () => {
                   {edu.description}
                 </p>
 
-                <div>
-                  <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
-                    <BookOpen size={14} />
+                <div className="pt-4 border-t border-gray-300/90 dark:border-gray-600">
+                  <h5 className="v-mono text-[10px] uppercase tracking-[0.16em] font-semibold text-gray-600 dark:text-gray-300 mb-3 flex items-center gap-2">
+                    <BookOpen size={13} />
                     Core Subjects
                   </h5>
                   <div className="flex flex-wrap gap-2">
                     {edu.coursework.map((course, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium"
+                        className="px-2.5 py-1 border border-gray-300 dark:border-gray-600 bg-white/60 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 rounded text-xs font-medium"
                       >
                         {course}
                       </span>

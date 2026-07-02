@@ -1,4 +1,5 @@
 import { Heart, Github, Linkedin, Mail, ArrowUp, Phone, MapPin, ExternalLink } from 'lucide-react'
+import { SiFiverr } from 'react-icons/si'
 
 const Footer = () => {
   const socialLinks = [
@@ -6,25 +7,26 @@ const Footer = () => {
       icon: <Github size={18} />,
       href: 'https://github.com/Hadeed711',
       label: 'GitHub',
-      color: 'hover:bg-gray-700 hover:text-white',
     },
     {
       icon: <Linkedin size={18} />,
       href: 'https://www.linkedin.com/in/hadeed-ahmad-a15919277',
       label: 'LinkedIn',
-      color: 'hover:bg-blue-600 hover:text-white',
+    },
+    {
+      icon: <SiFiverr size={18} />,
+      href: 'https://www.fiverr.com/s/Zm7LWPR',
+      label: 'Fiverr',
     },
     {
       icon: <Mail size={18} />,
       href: 'mailto:hadeedahmad711@gmail.com',
       label: 'Email',
-      color: 'hover:bg-violet-600 hover:text-white',
     },
     {
       icon: <Phone size={18} />,
       href: 'tel:+923241669274',
       label: 'Phone',
-      color: 'hover:bg-green-600 hover:text-white',
     },
   ]
 
@@ -41,8 +43,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-950 text-white relative overflow-hidden">
-      {/* Top accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+      {/* Engraved double rule — bronze */}
+      <div className="border-t-[3px] border-double border-amber-700/50" />
 
       {/* Subtle background pattern */}
       <div
@@ -60,10 +62,13 @@ const Footer = () => {
 
           {/* Brand */}
           <div>
-            <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
+            <span className="font-display text-2xl font-extrabold text-gray-100">
               Hadeed Ahmad
             </span>
-            <p className="mt-3 text-gray-400 text-sm leading-relaxed">
+            <p className="v-mono mt-2 text-[10px] uppercase tracking-[0.2em] text-amber-500/80">
+              Est. 2022 · Faisalabad
+            </p>
+            <p className="mt-4 text-gray-400 text-sm leading-relaxed">
               CS Undergraduate · Full Stack Developer · Data Scientist & ML Engineer
             </p>
             <div className="flex items-center gap-1.5 mt-3 text-xs text-gray-500">
@@ -71,8 +76,8 @@ const Footer = () => {
               Faisalabad, Pakistan
             </div>
             <div className="flex items-center gap-1.5 mt-4">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs text-green-400 font-medium">Available for opportunities</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="v-mono text-[10px] uppercase tracking-[0.16em] text-emerald-400 font-medium">Available for opportunities</span>
             </div>
 
             {/* Social icons */}
@@ -84,7 +89,7 @@ const Footer = () => {
                   aria-label={link.label}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className={`p-2.5 rounded-lg bg-gray-800 text-gray-400 transition-all duration-200 ${link.color}`}
+                  className="p-2.5 rounded-md border border-gray-700 bg-gray-900 text-gray-400 hover:text-amber-400 hover:border-amber-600/60 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   {link.icon}
                 </a>
@@ -94,8 +99,9 @@ const Footer = () => {
 
           {/* Quick nav */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h4 className="v-mono text-[11px] font-semibold text-gray-200 uppercase tracking-[0.2em] mb-5 flex items-center gap-3">
               Navigation
+              <span className="flex-1 h-px bg-gradient-to-r from-gray-700 to-transparent" />
             </h4>
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
@@ -106,9 +112,9 @@ const Footer = () => {
                       e.preventDefault()
                       document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' })
                     }}
-                    className="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-gray-400 hover:text-amber-400 transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="w-0 group-hover:w-3 h-px bg-blue-400 transition-all duration-200" />
+                    <span className="w-0 group-hover:w-3 h-px bg-amber-500 transition-all duration-200" />
                     {link.label}
                   </a>
                 </li>
@@ -118,58 +124,69 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h4 className="v-mono text-[11px] font-semibold text-gray-200 uppercase tracking-[0.2em] mb-5 flex items-center gap-3">
               Get in Touch
+              <span className="flex-1 h-px bg-gradient-to-r from-gray-700 to-transparent" />
             </h4>
             <div className="space-y-3">
               <a
                 href="mailto:hadeedahmad711@gmail.com"
-                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 group"
+                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-amber-400 transition-colors duration-200 group"
               >
-                <Mail size={14} className="flex-shrink-0 text-gray-600 group-hover:text-blue-400 transition-colors duration-200" />
+                <Mail size={14} className="flex-shrink-0 text-gray-600 group-hover:text-amber-400 transition-colors duration-200" />
                 hadeedahmad711@gmail.com
               </a>
               <a
                 href="tel:+923241669274"
-                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 group"
+                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-amber-400 transition-colors duration-200 group"
               >
-                <Phone size={14} className="flex-shrink-0 text-gray-600 group-hover:text-blue-400 transition-colors duration-200" />
+                <Phone size={14} className="flex-shrink-0 text-gray-600 group-hover:text-amber-400 transition-colors duration-200" />
                 +92 324 1669274
               </a>
               <a
                 href="https://github.com/Hadeed711"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200 group"
+                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-amber-400 transition-colors duration-200 group"
               >
-                <Github size={14} className="flex-shrink-0 text-gray-600 group-hover:text-blue-400 transition-colors duration-200" />
+                <Github size={14} className="flex-shrink-0 text-gray-600 group-hover:text-amber-400 transition-colors duration-200" />
                 github.com/Hadeed711
+                <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </a>
+              <a
+                href="https://www.fiverr.com/s/Zm7LWPR"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-sm text-gray-400 hover:text-amber-400 transition-colors duration-200 group"
+              >
+                <SiFiverr size={14} className="flex-shrink-0 text-gray-600 group-hover:text-amber-400 transition-colors duration-200" />
+                Hire me on Fiverr
                 <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </a>
             </div>
 
-            {/* CV download */}
+            {/* CV download — inverted letterpress on dark */}
             <a
               href="/CV_Hadeed_Ahmad.pdf"
               download
-              className="inline-flex items-center gap-2 mt-6 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg text-sm font-semibold text-white hover:from-blue-700 hover:to-violet-700 transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-blue-900/30"
+              className="btn-shimmer inline-flex items-center gap-2 mt-6 px-4 py-2.5 bg-gray-100 text-gray-900 rounded-lg text-sm font-semibold hover:bg-white transition-all duration-200 hover:-translate-y-0.5 shadow-lg"
             >
               Download CV
             </a>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar — colophon */}
         <div className="py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-gray-600 flex items-center gap-1.5">
+          <p className="v-mono text-[10px] uppercase tracking-[0.14em] text-gray-600 flex items-center gap-1.5">
             © 2025 Hadeed Ahmad · Built with
-            <Heart size={11} className="text-red-500" />
+            <Heart size={11} className="text-amber-600" />
             React + Tailwind CSS
           </p>
           <button
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-blue-400 transition-colors duration-200"
+            className="v-mono flex items-center gap-1.5 text-[10px] uppercase tracking-[0.14em] text-gray-600 hover:text-amber-400 transition-colors duration-200"
           >
             <ArrowUp size={13} />
             Back to top

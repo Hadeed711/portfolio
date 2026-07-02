@@ -82,9 +82,9 @@ const Hero = () => {
 
               {/* Typewriter */}
               <div className="h-10 flex items-center justify-center lg:justify-start gap-2 text-xl md:text-2xl">
-                <span className="w-1 h-6 rounded-full bg-blue-500 animate-pulse flex-shrink-0" />
+                <span className="w-1 h-6 rounded-full bg-gray-700 dark:bg-gray-300 animate-pulse flex-shrink-0" />
                 <span className="text-gray-700 dark:text-gray-200 font-medium">{text}</span>
-                <span className="w-0.5 h-7 rounded-full bg-violet-500 animate-pulse flex-shrink-0" />
+                <span className="w-0.5 h-7 rounded-full bg-amber-600 dark:bg-amber-500 animate-pulse flex-shrink-0" />
               </div>
             </div>
 
@@ -107,9 +107,9 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="group p-3 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                  className="group p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 hover:border-gray-700 dark:hover:border-gray-400 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
                 >
-                  <span className="text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  <span className="text-gray-500 dark:text-gray-400 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors duration-300">
                     {s.icon}
                   </span>
                 </a>
@@ -120,7 +120,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <button
                 onClick={() => document.querySelector('#projects').scrollIntoView({ behavior: 'smooth' })}
-                className="btn-shimmer group flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-violet-700 shadow-lg hover:shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                className="btn-shimmer group flex items-center justify-center gap-2 px-8 py-3.5 bg-gray-900 dark:bg-gray-100 text-gray-50 dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
               >
                 View My Work
                 <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -128,7 +128,7 @@ const Hero = () => {
               <a
                 href="/CV_Hadeed_Ahmad.pdf"
                 download
-                className="group flex items-center justify-center gap-2 px-8 py-3.5 bg-white dark:bg-gray-800/90 border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:border-blue-500 dark:hover:border-blue-500 hover:-translate-y-0.5 transition-all duration-300 backdrop-blur-sm"
+                className="group flex items-center justify-center gap-2 px-8 py-3.5 bg-white dark:bg-gray-800/90 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg font-semibold hover:border-gray-700 dark:hover:border-gray-300 hover:-translate-y-0.5 transition-all duration-300 backdrop-blur-sm"
               >
                 <FaDownload className="w-4 h-4" />
                 Download CV

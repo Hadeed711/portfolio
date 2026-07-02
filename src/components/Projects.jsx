@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { ExternalLink, Github, Eye, Code, Zap, Brain, Rocket } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { ExternalLink, Github, Eye, Code, Zap, Brain, Rocket, ChevronLeft, ChevronRight } from 'lucide-react'
 import ImageModal from './ImageModal'
 import { projects } from '../data/projects'
 
@@ -8,11 +7,68 @@ const Projects = () => {
   const [filter, setFilter] = useState('all')
   const [zoomedImage, setZoomedImage] = useState(null)
 
+  // ── Archive-drawer coverflow for the Other Projects slider ──
+  const flowRef = useRef(null)
+  const flowRaf = useRef(0)
+  const [flowIdx, setFlowIdx] = useState(0)
+
+  const updateFlow = useCallback(() => {
+    const track = flowRef.current
+    if (!track) return
+    const rect = track.getBoundingClientRect()
+    const center = rect.left + rect.width / 2
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let best = 0
+    let bestDist = Infinity
+    Array.from(track.children).forEach((card, i) => {
+      const r = card.getBoundingClientRect()
+      const dist = r.left + r.width / 2 - center
+      if (Math.abs(dist) < bestDist) {
+        bestDist = Math.abs(dist)
+        best = i
+      }
+      if (reduced) {
+        card.style.transform = ''
+        card.style.opacity = ''
+        return
+      }
+      // -1 … 1 relative offset from the track centre
+      const t = Math.max(-1, Math.min(1, dist / rect.width))
+      card.style.transform = `perspective(900px) rotateY(${(-t * 16).toFixed(2)}deg) scale(${(1 - Math.abs(t) * 0.1).toFixed(3)})`
+      card.style.opacity = (1 - Math.abs(t) * 0.35).toFixed(3)
+      card.style.zIndex = String(100 - Math.round(Math.abs(t) * 50))
+    })
+    setFlowIdx(best)
+  }, [])
+
+  const onFlowScroll = () => {
+    cancelAnimationFrame(flowRaf.current)
+    flowRaf.current = requestAnimationFrame(updateFlow)
+  }
+
+  useEffect(() => {
+    // reset to the first card when the filter changes, then lay out the flow
+    flowRef.current?.scrollTo({ left: 0 })
+    updateFlow()
+    window.addEventListener('resize', updateFlow)
+    return () => {
+      window.removeEventListener('resize', updateFlow)
+      cancelAnimationFrame(flowRaf.current)
+    }
+  }, [updateFlow, filter])
+
+  const scrollFlow = (dir) => {
+    const track = flowRef.current
+    if (!track || !track.children.length) return
+    const step = track.children[0].getBoundingClientRect().width + 24
+    track.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
   const categories = [
-    { id: 'all', name: 'All Projects', icon: <Eye size={18} /> },
-    { id: 'fullstack', name: 'Full Stack', icon: <Code size={18} /> },
-    { id: 'data-science', name: 'Data Science', icon: <Zap size={18} /> },
-    { id: 'ml', name: 'Machine Learning', icon: <Brain size={18} /> },
+    { id: 'all', name: 'All Projects', icon: <Eye size={15} /> },
+    { id: 'fullstack', name: 'Full Stack', icon: <Code size={15} /> },
+    { id: 'data-science', name: 'Data Science', icon: <Zap size={15} /> },
+    { id: 'ml', name: 'Machine Learning', icon: <Brain size={15} /> },
   ]
 
   const featuredProjects = projects.filter((p) => p.featured)
@@ -23,6 +79,8 @@ const Projects = () => {
 
   const filteredFeatured =
     filter === 'all' ? featuredProjects : featuredProjects.filter((p) => p.category === filter)
+
+  const serial = (id) => `No. ${String(id).padStart(2, '0')}`
 
   return (
     <section id="projects" className="py-16 sm:py-20 bg-white dark:bg-gray-900 relative">
@@ -38,15 +96,15 @@ const Projects = () => {
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-10 sm:mb-12">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setFilter(category.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-md border v-mono text-[11px] uppercase tracking-[0.18em] transition-all duration-300 ${
                 filter === category.id
-                  ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-blue-500/25'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'bg-gray-900 text-gray-50 border-gray-900 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 shadow-md'
+                  : 'bg-white/70 dark:bg-gray-800/70 text-gray-600 dark:text-gray-300 border-gray-400/70 dark:border-gray-600 hover:border-gray-700 dark:hover:border-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
               {category.icon}
@@ -58,84 +116,68 @@ const Projects = () => {
         {/* Featured Projects */}
         {filteredFeatured.length > 0 && (
           <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-2">
-              <Rocket size={24} className="text-blue-500" />
-              Featured Projects
+            <h3 className="flex items-center gap-3 mb-8">
+              <Rocket size={22} className="text-amber-700 dark:text-amber-500 flex-shrink-0" />
+              <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+                Featured Projects
+              </span>
+              <span className="hidden sm:block flex-1 h-px bg-gradient-to-r from-gray-400/70 to-transparent dark:from-gray-600" />
             </h3>
             <div className="grid md:grid-cols-2 gap-8">
               {filteredFeatured.map((project) => (
                 <div
                   key={project.id}
-                  className="fx-card group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-300 dark:border-gray-600"
+                  className="fx-card group relative bg-[#faf9f7] dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-400/80 dark:border-gray-500/70"
                 >
-                  {/* Project Image or Gradient banner */}
-                  <div 
-                    className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden border-b border-gray-400 dark:border-gray-500 ${project.image ? 'cursor-pointer' : ''}`}
-                    onClick={() => project.image && setZoomedImage(project.image)}
-                  >
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <>
-                        <div className="text-7xl opacity-20 select-none">{project.emoji}</div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-6xl">{project.emoji}</span>
-                        </div>
-                      </>
-                    )}
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
+                  <span className="v-rule" aria-hidden="true" />
 
-                    {/* Actions */}
-                    <div className="touch-reveal absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/50 hover:bg-white/30 transition-colors duration-300"
-                      >
-                        <Github className="text-gray-700" size={18} />
-                      </a>
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors duration-300"
-                        >
-                          <ExternalLink className="text-white" size={18} />
-                        </a>
-                      )}
-                    </div>
-
-                    {/* Tag */}
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${project.tagColor}`}>
+                  <div className="p-5 sm:p-6">
+                    {/* Plate header — serial number + stamp */}
+                    <div className="flex items-center justify-between gap-3 pb-3 mb-4 border-b border-gray-300/90 dark:border-gray-600">
+                      <span className="v-mono text-[11px] tracking-[0.22em] uppercase text-gray-500 dark:text-gray-400">
+                        {serial(project.id)}
+                      </span>
+                      <span className="stamp stamp--tilt text-amber-800/90 dark:text-amber-400/90">
                         {project.tag}
                       </span>
                     </div>
-                  </div>
 
-                  <div className="p-6">
-                    <h4 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                    {/* Matted photograph */}
+                    <div
+                      className={`relative rounded-md overflow-hidden border border-gray-400/70 dark:border-gray-500/70 bg-gradient-to-br ${project.gradient} ${project.image ? 'cursor-pointer' : ''}`}
+                      onClick={() => project.image && setZoomedImage(project.image)}
+                    >
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="v-photo w-full h-48 sm:h-52 object-cover"
+                        />
+                      ) : (
+                        <div className="h-48 sm:h-52 flex items-center justify-center relative">
+                          <span className="absolute text-8xl opacity-15 select-none">{project.emoji}</span>
+                          <span className="text-6xl">{project.emoji}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Title & description */}
+                    <h4 className="font-display text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-5 mb-2 leading-snug">
                       {project.title}
                     </h4>
                     <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
 
-                    {/* Stats */}
+                    {/* Ledger stats */}
                     {project.stats && (
-                      <div className="grid grid-cols-3 gap-3 mb-4 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <div className="grid grid-cols-3 divide-x divide-gray-300/90 dark:divide-gray-600 border-y border-gray-300/90 dark:border-gray-600 mb-4">
                         {Object.entries(project.stats).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="text-xs font-bold text-blue-600 dark:text-blue-400 leading-snug">
+                          <div key={key} className="px-2 py-2.5 text-center">
+                            <div className="font-display font-bold text-[13px] text-gray-800 dark:text-gray-100 leading-snug">
                               {value}
                             </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400 capitalize mt-0.5">
+                            <div className="v-mono text-[9px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mt-1">
                               {key}
                             </div>
                           </div>
@@ -143,25 +185,143 @@ const Projects = () => {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                    {/* Typeset technology line */}
+                    <p className="v-mono text-[10px] uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400 leading-relaxed mb-5">
+                      {project.technologies.join(' · ')}
+                    </p>
 
-                    <div className="flex items-center justify-between">
+                    {/* Colophon footer */}
+                    <div className="flex items-center justify-between pt-3 border-t-[3px] border-double border-gray-400/70 dark:border-gray-500/70">
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm transition-colors duration-300"
+                        className="inline-flex items-center gap-2 v-mono text-[11px] uppercase tracking-[0.18em] text-gray-700 dark:text-gray-300 hover:text-amber-800 dark:hover:text-amber-400 transition-colors duration-300"
                       >
-                        <Github size={15} />
+                        <Github size={14} />
+                        View on GitHub
+                      </a>
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 v-mono text-[11px] uppercase tracking-[0.18em] text-gray-700 dark:text-gray-300 hover:text-amber-800 dark:hover:text-amber-400 transition-colors duration-300"
+                        >
+                          Live
+                          <ExternalLink size={12} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Other Projects — archive-drawer coverflow slider */}
+        {filteredOther.length > 0 && (
+          <div>
+            <h3 className="flex items-center gap-3 mb-8">
+              <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+                {filter === 'all' ? 'Other Projects' : 'Projects'}
+              </span>
+              <span className="flex-1 h-px bg-gradient-to-r from-gray-400/70 to-transparent dark:from-gray-600" />
+              <span className="hidden sm:inline v-mono text-[10px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 flex-shrink-0">
+                Plate {String(flowIdx + 1).padStart(2, '0')} / {String(filteredOther.length).padStart(2, '0')}
+              </span>
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <button
+                  onClick={() => scrollFlow(-1)}
+                  disabled={flowIdx === 0}
+                  aria-label="Previous project"
+                  className={`p-2 rounded-md border transition-all duration-200 ${
+                    flowIdx > 0
+                      ? 'border-gray-400/80 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-amber-700 dark:hover:border-amber-500 hover:text-amber-800 dark:hover:text-amber-400'
+                      : 'border-gray-200 dark:border-gray-700 text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                  }`}
+                >
+                  <ChevronLeft size={15} />
+                </button>
+                <button
+                  onClick={() => scrollFlow(1)}
+                  disabled={flowIdx >= filteredOther.length - 1}
+                  aria-label="Next project"
+                  className={`p-2 rounded-md border transition-all duration-200 ${
+                    flowIdx < filteredOther.length - 1
+                      ? 'border-gray-400/80 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-amber-700 dark:hover:border-amber-500 hover:text-amber-800 dark:hover:text-amber-400'
+                      : 'border-gray-200 dark:border-gray-700 text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                  }`}
+                >
+                  <ChevronRight size={15} />
+                </button>
+              </div>
+            </h3>
+
+            <div
+              ref={flowRef}
+              onScroll={onFlowScroll}
+              className="cert-slider flex gap-6 overflow-x-auto pt-2 pb-5 px-2 sm:px-6"
+              style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {filteredOther.map((project) => (
+                <div
+                  key={project.id}
+                  style={{ scrollSnapAlign: 'center', willChange: 'transform, opacity' }}
+                  className="group relative flex-shrink-0 w-[78vw] max-w-[20rem] sm:w-80 bg-[#faf9f7] dark:bg-gray-800 rounded-lg overflow-hidden shadow-md border border-gray-400/80 dark:border-gray-500/70 hover:shadow-xl transition-shadow duration-300"
+                >
+                  <span className="v-rule" aria-hidden="true" />
+
+                  <div className="p-4 sm:p-5">
+                    {/* Plate header */}
+                    <div className="flex items-center justify-between gap-2 pb-2.5 mb-3.5 border-b border-gray-300/90 dark:border-gray-600">
+                      <span className="v-mono text-[10px] tracking-[0.22em] uppercase text-gray-500 dark:text-gray-400">
+                        {serial(project.id)}
+                      </span>
+                      <span className="stamp text-amber-800/90 dark:text-amber-400/90">
+                        {project.tag}
+                      </span>
+                    </div>
+
+                    {/* Matted photograph */}
+                    <div
+                      className={`relative rounded-md overflow-hidden border border-gray-400/70 dark:border-gray-500/70 bg-gradient-to-br ${project.gradient} ${project.image ? 'cursor-pointer' : ''}`}
+                      onClick={() => project.image && setZoomedImage(project.image)}
+                    >
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="v-photo w-full h-32 object-cover"
+                        />
+                      ) : (
+                        <div className="h-32 flex items-center justify-center">
+                          <span className="text-4xl">{project.emoji}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <h4 className="font-display text-base font-bold text-gray-900 dark:text-white mt-4 mb-2 leading-snug">
+                      {project.title}
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-xs mb-3 line-clamp-3 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <p className="v-mono text-[9px] uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+                      {project.technologies.slice(0, 5).join(' · ')}
+                      {project.technologies.length > 5 && ` · +${project.technologies.length - 5}`}
+                    </p>
+
+                    <div className="pt-2.5 border-t border-gray-300/90 dark:border-gray-600">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 v-mono text-[10px] uppercase tracking-[0.18em] text-gray-700 dark:text-gray-300 hover:text-amber-800 dark:hover:text-amber-400 transition-colors duration-300"
+                      >
+                        <Github size={13} />
                         View on GitHub
                       </a>
                     </div>
@@ -171,82 +331,10 @@ const Projects = () => {
             </div>
           </div>
         )}
-
-        {/* Other Projects Grid */}
-        {filteredOther.length > 0 && (
-          <div>
-            <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">
-              {filter === 'all' ? 'Other Projects' : 'Projects'}
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredOther.map((project) => (
-                <div
-                  key={project.id}
-                  className="fx-card group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-gray-600"
-                >
-                  {/* Project Image or Gradient banner */}
-                  <div 
-                    className={`h-36 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden border-b border-gray-400 dark:border-gray-500 ${project.image ? 'cursor-pointer' : ''}`}
-                    onClick={() => project.image && setZoomedImage(project.image)}
-                  >
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-5xl">{project.emoji}</span>
-                    )}
-                    <div className="absolute top-3 left-3">
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${project.tagColor}`}>
-                        {project.tag}
-                      </span>
-                    </div>
-                    <div className="touch-reveal absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 bg-white/20 backdrop-blur-sm rounded-full border border-white/50 hover:bg-white/30 transition-colors duration-300"
-                      >
-                        <Github className="text-gray-700" size={14} />
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="p-4">
-                    <h4 className="text-base font-bold mb-2 text-gray-900 dark:text-white leading-snug">
-                      {project.title}
-                    </h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-xs mb-3 line-clamp-3 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 4 && (
-                        <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded text-xs">
-                          +{project.technologies.length - 4}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-      
-      <ImageModal 
-        image={zoomedImage} 
+
+      <ImageModal
+        image={zoomedImage}
         alt="Project Preview"
         isOpen={!!zoomedImage}
         onClose={() => setZoomedImage(null)}

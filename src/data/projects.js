@@ -45,7 +45,7 @@ export const projects = [
     technologies: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Streamlit', 'NASA Dataset'],
     github: 'https://github.com/Hadeed711/nasa_exoplanet',
     live: null,
-    featured: true,
+    featured: false,
     tag: 'NASA Hackathon',
     tagColor: 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300',
     stats: { team: '3-member Intl.', accuracy: 'ML Models', event: 'NASA Space Apps' },

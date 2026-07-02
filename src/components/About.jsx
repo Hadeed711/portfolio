@@ -42,6 +42,8 @@ import {
   SiTensorflow,
   SiCplusplus,
   SiOpencv,
+  SiDocker,
+  SiGithubactions,
 } from 'react-icons/si'
 import { useState } from 'react'
 import ProfileFrame from './ProfileFrame'
@@ -98,6 +100,7 @@ const About = () => {
       icon: <SiTensorflow className="text-2xl" />,
       color: 'from-orange-500 to-red-600',
       technologies: [
+        { name: 'Agentic AI', icon: <FaRobot />, color: 'text-violet-600' },
         { name: 'TensorFlow', icon: <SiTensorflow />, color: 'text-orange-600' },
         { name: 'Scikit-learn', icon: <SiScikitlearn />, color: 'text-orange-500' },
         { name: 'YOLO', icon: <FaEye />, color: 'text-green-600' },
@@ -117,6 +120,8 @@ const About = () => {
       icon: <SiVercel className="text-2xl" />,
       color: 'from-purple-500 to-violet-600',
       technologies: [
+        { name: 'Docker', icon: <SiDocker />, color: 'text-blue-500' },
+        { name: 'CI/CD Pipelines', icon: <SiGithubactions />, color: 'text-indigo-500' },
         { name: 'Vercel', icon: <SiVercel />, color: 'text-gray-900 dark:text-white' },
         { name: 'Azure', icon: <FaCloud />, color: 'text-blue-600' },
         { name: 'Git', icon: <FaGitAlt />, color: 'text-orange-600' },

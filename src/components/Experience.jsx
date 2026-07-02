@@ -57,20 +57,21 @@ const Experience = () => {
           {experiences.map((exp, index) => (
             <div key={index} className="relative flex items-start gap-4 sm:gap-5">
               {index < experiences.length - 1 && (
-                <div className="absolute left-6 top-14 w-0.5 h-full bg-gradient-to-b from-blue-400/60 to-transparent" />
+                <div className="absolute left-6 top-14 w-0.5 h-full bg-gradient-to-b from-gray-400/70 to-transparent dark:from-gray-500/70" />
               )}
 
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full flex items-center justify-center shadow-lg">
-                <Briefcase className="text-white" size={20} />
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-400 rounded-full flex items-center justify-center shadow-lg">
+                <Briefcase className="text-white dark:text-gray-900" size={20} />
               </div>
 
-              <div className="fx-card flex-1 bg-white dark:bg-gray-800 rounded-2xl p-5 sm:p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+              <div className="fx-card relative flex-1 bg-[#faf9f7] dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg border border-gray-400/80 dark:border-gray-500/70">
+                <span className="v-rule" aria-hidden="true" />
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3 gap-2">
                   <div>
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h4 className="font-display text-xl font-bold text-gray-900 dark:text-white">
                       {exp.title}
                     </h4>
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold">
+                    <p className="text-gray-700 dark:text-gray-300 font-semibold italic">
                       {exp.company}
                     </p>
                   </div>
@@ -86,7 +87,7 @@ const Experience = () => {
                   </div>
                 </div>
 
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${exp.typeColor} mb-4`}>
+                <span className="stamp stamp--tilt text-amber-800/90 dark:text-amber-400/90 mb-4">
                   {exp.type}
                 </span>
 
@@ -95,25 +96,25 @@ const Experience = () => {
                 </p>
 
                 <div className="mb-4">
-                  <h5 className="font-semibold text-gray-900 dark:text-white mb-2 text-sm flex items-center">
-                    <TrendingUp size={14} className="mr-1.5 text-green-500" />
+                  <h5 className="v-mono text-[10px] uppercase tracking-[0.16em] font-semibold text-gray-600 dark:text-gray-300 mb-2.5 flex items-center">
+                    <TrendingUp size={13} className="mr-1.5 text-amber-700 dark:text-amber-500" />
                     Key Highlights
                   </h5>
                   <ul className="space-y-1.5">
                     {exp.achievements.map((achievement, i) => (
                       <li key={i} className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
+                        <span className="w-1 h-1 bg-amber-700 dark:bg-amber-500 rotate-45 mt-2 flex-shrink-0" />
                         {achievement}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-300/90 dark:border-gray-600">
                   {exp.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium"
+                      className="px-2.5 py-1 border border-gray-300 dark:border-gray-600 bg-white/60 dark:bg-gray-700/40 text-gray-700 dark:text-gray-300 rounded text-xs font-medium"
                     >
                       {tech}
                     </span>
